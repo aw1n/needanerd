@@ -23,7 +23,8 @@ RUN yum -y install tar
 RUN pip install psycopg2 
 RUN pip install django=="$DJANGO_VERSION"
 
-RUN git clone https://github.com/johnfosborneiii/needanerd
+ARG CACHEBUST=1 #This cache bust makes sure the docker build gets the latest code from github
+RUN git clone https://github.com/johnfosborneiii/needanerd 
 
 # Port to expose
 EXPOSE 8888

@@ -43,8 +43,8 @@ DATABASES = {
         'NAME': 'nan_db',
         'USER': 'nerd',
         'PASSWORD': 'AuburnUniversity2016!',
-        'HOST': 'nan-postgres',                      
-        'PORT': '5432',
+        'HOST': '$DB_PORT_5432_TCP_ADDR',                      
+        'PORT': '$DB_PORT_5432_TCP_PORT',
     }
 }
 
