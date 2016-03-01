@@ -1,0 +1,18 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}Review{% endblock %}
+
+{% block content %}
+
+{{student.get_full_name}} review of {{employer.userprofile.employer.company_name}}<br />
+Need a Nerd very much appreciates the feedback 
+
+<br></br>
+<p>
+<form action="/employerreview/{{employer.pk}}/" method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+</p>
+{% endblock %}

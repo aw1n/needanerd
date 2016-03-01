@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/static/img/auburn_logo.jpg">
+
+    <title>{% block header %}Need a Nerd{% endblock %}</title>
+	
+	<link href="/static/css/jquery.ui.datepicker.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/signin.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/social-buttons.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/resume.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/employer.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/job.css" rel="stylesheet" type="text/css" />
+	<!-- <link href="/static/css/jquery-ui.css" rel="stylesheet" type="text/css" /> -->
+	
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/static/css/font-awesome-4.0.3/css/font-awesome.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/justified-nav.css" rel="stylesheet" type="text/css">
+    
+    <link href="/static/css/needanerd.css" rel="stylesheet" type="text/css" />
+	
+	<!-- <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" /> -->
+	<link href="/static/css/jquery-ui2.css" rel="stylesheet" type="text/css" />
+	
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    
+	<script type='text/javascript' src='/static/js/jquery-1.10.2.min.js'></script>
+	<script type='text/javascript' src='/static/js/jquery-ui.min.js'></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/bootbox.min.js"></script>
+	<script type='text/javascript' src='/static/js/jquery.json-2.4.min.js'></script>
+	<script type='text/javascript' src='/static/js/jquery.cookie.js'></script> 
+	<script type='text/javascript' src='/static/js/needanerd.js'></script>
+	<script type='text/javascript' src='/static/js/job.js'></script>
+	<script type='text/javascript' src='/static/js/student.js'></script>
+	<script type='text/javascript' src='/static/js/resume.js'></script>
+	<script type='text/javascript' src='/static/js/linkedin.js'></script>
+	
+	{% if resume %}
+		<script type="text/javascript">
+	    	var resume_data = "{{ resume|escapejs }}";
+		</script>
+	{% endif %}
+	
+	<script>
+	  $(function(){
+	  	$('.nav li a').on('click', function(e){
+
+	        e.preventDefault(); // prevent link click if necessary?
+	
+	        var $thisLi = $(this).parent('li');
+	        var $ul = $thisLi.parent('ul');
+	
+	        if (!$thisLi.hasClass('active'))
+	        {
+	            	$ul.find('li.active').removeClass('active');
+	                $thisLi.addClass('active');
+	        }
+	        window.location=this.href;
+	    })
+	})
+	</script>
+	<script>
+		$('body').off('.data-api')
+		$( document ).ready(function() {
+		
+			p=window.location.pathname;
+			if(p=="" || p=='/'){
+				$("#lihome").addClass('active');
+			}else if(p.indexOf("apply") > 0){
+				$("#lifindwork").addClass('active');
+			}else if(p.indexOf("myjobs") > 0){
+				$("#limyjobs").addClass('active');
+			}else if(p == '/students/'){
+				$("#listudents").addClass('active');
+			}else if(p.indexOf("/jobs/list/") > 0){
+				$("#lijoblist").addClass('active');
+			}else if(p.indexOf("contact") > 0){
+				$("#licontact").addClass('active');
+			}else if(p.indexOf("logout") > 0){
+				$("#lilogout").addClass('active');
+			}else if(p.indexOf("login") > 0){
+				$("#lilogin").addClass('active');
+			}else if(p.indexOf("students") > 0 || p.indexOf("employers") > 0){
+				$("#liprofile").addClass('active');
+			}
+		});
+	</script>
+  </head>
+
+  <body>
+  
+	<input type=hidden id="csrf_token" value="{{ csrf_token }}"/>
+	
+	<div class="container">
+{% if user.is_authenticated %}
+	  	<div id="welcomeuser">
+			<p class="text-right"><a class="" href="/profile/" >Welcome {{ user.first_name }}</a></p> 
+		</div>
+	  {% else %}
+    	<div id="welcomeuser">
+    		<p class="text-right"><a class="" href="/accounts/login/" >Welcome, new user. Please log in.</a></p>
+    	</div>
+	  {% endif %}
+	  
+	  <h1 id="nerdheader1" >Need <img id="logo" src="/static/img/auburn_logo.jpg" alt="Auburn University" class="img-rounded" /> Nerd</h1>
+	  <br/>
+	  {% if msg %}
+		<br/>
+	    <div class="alert alert-success">
+	    	<strong>{{ msg }}</strong>
+		</div>
+	  {% endif %}
+    
+      {% if errmsg %}
+      	{% autoescape off %}
+		<br/>
+	    <div class="alert alert-danger">
+	    	<strong>{{ errmsg }}</strong>
+		</div>
+		{% endautoescape %}
+	  {% endif %}
+	    
+	  
+      <div class="masthead">
+        <ul class="nav nav-justified nav-tabs" id="myTab">
+          <li id="lihome"><a href="/" data-toggle="tab">Home</a></li>
+          {% if user.is_authenticated %}
+				<!--
+				<li><a href="/nerdnews/">Nerd News</a></li>
+				-->
+				{% if user.userprofile.student %}
+					<li id="liprofile" ><a href="/students/profile/" data-toggle="tab">Profile</a></li>
+					<li id="lifindwork" ><a href="/jobs/apply/" data-toggle="tab">Find Jobs</a></li>
+				{% elif user.userprofile.employer %}
+					<li id="liprofile" ><a href="/profile/" data-toggle="tab">Profile</a></li>
+					<li id="limyjobs" ><a href="/employers/myjobs/">My Jobs</a></li>
+					<li id="listudents" ><a href="/students/">Find Students</a></li>
+					<li id="idjoblist" ><a href="/jobs/list/">Find Jobs</a></li>
+				{% elif user.is_superuser %}
+					<li><a href="/accounts/admin/">Admin</a></li>
+					<li><a href="/students/">Find Students</a></li>
+					<li><a href="/employers/">Find Employers</a></li>
+					<li id="idjoblist" ><a href="/jobs/list/">Find Jobs</a></li>
+				{% endif %}
+				<li id="licontact" ><a href="/contact/">Contact</a></li>					
+				<li id="lilogout"><a href="/accounts/logout/">Logout</a></li>
+			{% else %}
+				<li id="licontact"><a href="/contact/">Contact</a></li>			
+				<li id="lilogin"><a href="/accounts/login/">Login</a></li>
+			{% endif %}
+        </ul>
+      </div>
+	
+	<br/><br/>
+	{% block content %}
+	{% endblock %}
+	{% block acctmanagement %}
+	{% endblock %} 
+      <!-- Site footer -->
+      <div class="footer">
+        <p>&copy; Need a Nerd</p>
+      </div>
+
+   </body>
+</html>

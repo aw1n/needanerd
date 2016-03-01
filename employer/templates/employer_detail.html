@@ -1,0 +1,136 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}Employer{% endblock %}
+
+{% block content %}
+
+{% if employer %}
+	
+<br />
+<h5>
+<div id="employer">
+	<div class="row">
+		<div class="col-md-6">Recruiter Name:<strong> {{employer.first_name}} {{employer.last_name}}</strong></div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-md-6">Company Name:<strong> {{employer.userprofile.employer.company_name}}</strong></div>
+	</div>
+	<br/>
+	
+	{% if employer.userprofile.employer.website %}
+		<div class="row">
+			<div class="col-md-6">Website: <a href='{{employer.userprofile.employer.website}}'>{{employer.userprofile.employer.website}}</a></div>
+		</div>
+		<br/>
+	{% else %}
+		<div class="row">
+			<div class="col-md-6">Website: Not Provided</a></div>
+		</div>
+		<br/>
+	{% endif %}
+	<div class="row">
+		<div class="col-md-6">Email: <a href='mailto:{{employer.email}}'>{{employer.email}}</a></div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-md-8">Description:<br/><br/><textarea id='description' class='form-control savedtextarea' readonly=True>{{employer.userprofile.employer.description}}</textarea> </div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-md-8">Location:
+			{% if employer.userprofile.employer.oncampus %}
+        		On Campus<br/>
+      		{% else %}
+        		Off campus<br/>
+    		{% endif %}
+    		<br/>Contact Us:<br/><br/>
+			{% if employer.userprofile.employer.address1 %}
+				<strong>{{employer.userprofile.employer.company_name}}</strong><br/>
+				{{employer.userprofile.employer.address1}}<br/>
+				{{employer.userprofile.employer.address2}}<br/>
+				{{employer.userprofile.employer.city}}<br/>
+    			{{employer.userprofile.employer.state}}<br/>
+    			{{employer.userprofile.employer.zipcode}}<br/>
+    			
+			{% else %}
+				Address Not Provided<br/>
+			{% endif %}
+			<br/>
+			{% if employer.userprofile.employer.phone %}
+				<abbr title="Phone">P:</abbr> {{employer.userprofile.employer.phone}}<br/>
+			{% else %}
+				Phone Number Not Provided<br/>
+			{% endif %}
+		</div>
+	</div>
+	<br/>
+
+</div>
+</h5>
+
+    
+	{% if reviews %}
+	
+	<br />
+	<br />
+	
+	<div style='font-style:italic;'>
+		<p>Reviews about this Employer:</p>
+	</div>
+    <table class="profile">
+	    <tr width="100%">
+	    	<th>Star Rating</th>
+	        <th>Date</th>
+	    	<th>Student</th>
+	        <th>Comments</th>
+	    </tr>
+	    {% for review in reviews %}
+		    <tr width="100%" onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+	        	{% if review.rating == 5 %}
+	        		<td><img src="/static/css/images/5stars.png" /></td>
+	        	{% elif review.rating == 4 %}
+	        		<td><img src="/static/css/images/4stars.png" /></td>
+	        	{% elif review.rating == 3 %}
+	        		<td><img src="/static/css/images/3stars.png" /></td>
+	        	{% elif review.rating == 2 %}
+	        		<td><img src="/static/css/images/2stars.png" /></td>
+	        	{% else %}
+	        		<td><img src="/static/css/images/1star.png" /></td>
+	        	{% endif %}
+	        	<td>{{review.created_at|date:'b d Y'|upper}}</a></td>
+	        	<td>{{review.student.userprofile_set.get.user.get_full_name}}</td>
+	        	<td>{{review.comments}}</td>
+	    	</tr>
+		{% endfor %}
+		<div class="pagination">
+	    	<span class="step-links">
+	        {% if reviews.has_previous %}
+	            <a href="?page={{ reviews.previous_page_number }}">Previous</a>
+	        {% endif %}
+	
+	        <span class="current">
+	            Page {{ reviews.number }} of {{ reviews.paginator.num_pages }} reviews.
+	        </span>
+	
+	        {% if reviews.has_next %}
+	            <a href="?page={{ reviews.next_page_number }}">Next</a>
+	        {% endif %}
+	    	</span>
+		</div>		
+	</table>
+	{% endif %}	
+	
+{% endif %}
+
+</br></br>
+<hr class="style-four"/>
+{% if hasCRUDPrivs %}
+<ul>
+	<li><a href="/employers/edit/{{user.pk}}/" >Edit Profile</a></li>
+	<li><a href="#" onclick="confirmDelete( {{user.pk}} )">Unregister</a> with Need a Nerd</li>
+	<li><a href="/accounts/passwordchange/">Change</a> your password</li>
+</ul>
+{% endif %}
+
+{% endblock %}

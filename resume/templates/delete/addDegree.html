@@ -1,0 +1,11 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}Add Degree{% endblock %}
+
+{% block content %}
+<form action="/resumes/{{resume.pk}}/degrees/add/" method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+{% endblock %}

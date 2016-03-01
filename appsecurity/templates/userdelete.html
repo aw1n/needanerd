@@ -1,0 +1,21 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}Activate Need a Nerd{% endblock %}
+
+{% block content %}
+
+{% if wrongpk %}
+	<p>You have tried to delete an account that's not yours. Shame on you.</p>
+{% elif student %}
+	<p>You have successfully deleted your student account</p>	
+{% elif employer %}
+	<p>You have successfully deleted your employer account</p>	
+{% elif admin %}
+	<p>You have successfully deleted your admin account</p>	
+{% elif admin %}
+	<p>An error has occurred</p>	
+{% else %}
+	<p>An error has occurred</p>	
+{% endif %}
+<br /><br /><br />
+{% endblock %}

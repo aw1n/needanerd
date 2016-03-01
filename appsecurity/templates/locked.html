@@ -1,0 +1,8 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}Account Locked Out{% endblock %}
+
+{% block content %}
+<p>You were locked out for unsuccessful tries after {{failure_limit}} attempts</p>
+<p>There is a cool off time of {{cooloff_time}} after which point you can try again</p>
+{% endblock %}

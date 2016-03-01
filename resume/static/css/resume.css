@@ -1,0 +1,218 @@
+hr.style-four { 
+
+	height: 12px;
+	border: 0;
+	box-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.5);
+
+}
+
+.summarybtn{
+
+	align:right;
+	margin-right: 0px;
+}
+
+.modbuttons{
+
+	border:none;
+	background-color:transparent;
+}
+
+#summarydiv #summary textarea{
+
+		width:100%;
+		font-family: Arial;
+		font-size: 20px;	
+		resize:none;
+		min-height:200px;
+		max-height:800px;
+		overflow: visible;
+		background-color:transparent;
+ 	
+}
+
+#jobs #savedjobs textarea{
+
+		width:100%;
+		font-family: Arial;
+		font-size: 20px;	
+		resize:none;
+		min-height:200px;
+		max-height:800px;
+		overflow: visible;
+		background-color:transparent;
+ 	
+}
+
+.savedtextarea{  	
+		border:none;
+	  	overflow:hidden;
+}
+
+#summarydiv #editsummary {
+	width:600px;
+	resize:vertical;
+	min-height:100px;
+	max-height:500px;
+	background-color:#ffffff;
+  	border:1px solid black;
+}
+
+
+#newjob #jobfunctions {
+	width:800px;
+	resize:none;
+	min-height:200px;
+	max-height:800px;
+
+}
+
+#newjob #startdate {
+	background-color:#ffffff;
+}
+
+#newjob #enddate {
+	background-color:#ffffff;
+}
+
+#newjob #ispresent {
+}
+
+.jobtitle {
+	font-family: Helvetica;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 24px;
+	color: rgb(0, 0, 0);
+	margin: 0;
+}
+.jobconame {
+	font-family: sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 	20px;
+	color: rgb(0, 0, 0);
+	margin: 0;
+}
+
+.jobdates{
+	font-family: sans-serif;
+	font-size: 14px
+	font-weight: 400;
+	line-height: 20px;
+	color: rgb(153, 153, 153);
+	margin: 0;
+}
+
+.jobfunctions textarea{
+	width:800px;
+	resize:none;
+	min-height:200px;
+	max-height:800px;
+	font-family: Arial;
+	font-size: 14px
+	font-weight: 400;
+	line-height: 18px;
+	color: rgb(0, 0, 0);
+	background-color:transparent;
+  	border:none;
+  	overflow:hidden;
+}
+
+.skill {
+	font-family: Helvetica;
+	font-size: 12px;
+	color: rgb(0, 0, 0);
+	margin: 0;
+}
+
+table#certificationstable{
+    width: 100%
+}
+
+table#certificationstable tr {
+    width: 100%
+}
+
+table#certificationstable {
+    width: 400px;
+}
+
+table#certificationstable tr {
+    padding: 5px;
+    border: solid #000 1px;
+}
+
+table#certificationstable td {
+
+}
+
+table#skillstable tr {
+
+
+}
+
+<!-- computed values from linked in
+
+{
+	border-bottom-color: rgb(51, 51, 51);
+	border-bottom-style: 	none;
+	border-bottom-width: 0px;
+	border-image-outset: 0 0 0 0;
+	border-image-repeat: stretch stretch;
+	border-image-slice: 100% 100% 100% 100%;
+	border-image-source: none;
+	border-image-width: 1 1 1 1;
+	border-left-color: rgb(51, 51, 51);
+	border-left-style: none;
+	border-left-width: 0px;
+	border-right-color: rgb(51, 51, 51);
+	border-right-style: none;
+	border-right-width: 0px;
+	border-top-color: rgb(51, 51, 51);
+	border-top-style: none;
+	border-top-width: 0px;
+	color: rgb(51, 51, 51);
+	cursor: pointer;
+	display: inline-block;
+	font-family: Helvetica,FreeSans,"Liberation Sans",Helmet,Arial,sans-serif;
+	font-size: 13px;
+	font-size-adjust: none;
+	font-stretch: normal;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 24px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	max-width: 545px;
+	outline-color: rgb(51, 51, 51);
+	outline-style: none;
+	outline-width: 0px;
+	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 7px;
+	padding-top: 0px;
+	text-overflow: ellipsis;
+	vertical-align: top;
+	white-space: nowrap;
+	width: 71px;
+	word-wrap: break-word;
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	-moz-font-feature-settings: normal;
+	-moz-font-language-override: normal;
+
+}
+
+-->

@@ -1,0 +1,88 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}Applicants{% endblock %}
+
+{% block content %}
+
+{% if job %}
+
+	<table class="table table-hover table-responsive">
+	<tr width="100%">
+    	<td>Employer:</td>
+    	<td>{{job.employer.company_name}}</td>
+    </tr>
+	<tr width="100%">
+    	<td>Name:</td>
+    	<td>{{job.name}}</td>
+    </tr>
+	<tr width="100%">
+    	<td>Description:</td>
+    	<td>{{job.description}}</td>
+    </tr>
+    <tr width="100%">
+    	<td>Skills:</td>
+    	<td>{{job.skills}}</td>
+    </tr>
+    <tr width="100%">
+    	<td>Start Date:</td>
+    	<td>{{job.startdate}}</td>
+    </tr>
+    <tr width="100%">
+    	<td>End Date:</td>
+    	{% if job.enddate %}
+    		<td>{{job.enddate}}</td>
+    	{% else %}
+    		<td>N/A</td>
+    	{% endif %}
+    </tr>
+    <tr width="100%">
+    	<td>Salary:</td>
+    	{% if job.salary %}
+		<td>{{job.salary}}</td>
+		{% else %}
+		<td>N/A</td>
+		{% endif %}
+    </tr>
+    <tr width="100%">
+    	<td>Last Updated:</td>
+    	<td>{{job.updated_at|date:'b d Y'|upper}}</td>
+    </tr>
+    </table>
+    
+    {% if user.userprofile.student in job.applicant.all %}
+    	<button class="btn btn-success" id=jobid_{{job.pk}} disabled=True>Applied</button>
+    {% else %}
+    	<button class="btn btn-primary" id=jobid_{{job.pk}} onClick="applyJob(jobid={{job.pk}}, studentid={{user.pk}})">Apply</button>
+    {% endif %}        	
+        	
+    
+	{% ifequal user.pk job.employer.userprofile_set.get.user.pk %}
+		
+		<br /><br />
+		{% if students %}
+			<div style='font-style:italic;'>
+				<p>Applicants:</p>
+			</div>
+			<table class="needanerd">
+			<tr width="100%">
+		    	<th>Name</th>
+		    	<th>Academic Major</th>
+		        <th>Username</th>
+		        <th>Email</th>
+			</tr>
+			{% for s in students %}	
+				<tr width="100%" onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+			   	<td>{{s.first_name}} {{s.last_name}}</td>
+			    <td>{{s.userprofile.student.currentmajor}}</td>
+			    <td>{{s.username}}</td>
+				<td>{{s.email}}</td>		        	
+			</tr>
+			{% endfor %}
+			</table>
+		{% else %}
+		
+		There are no students currently applied for this position
+		{% endif %}
+	{% endifequal %}
+{% endif %} 
+{% endblock %}

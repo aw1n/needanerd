@@ -1,0 +1,61 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+{% if admin %}
+<div>
+	<ul>
+		<li><a href="/students/">View all Students</a></li>
+		<li><a href="/employers/">View all Employers</a></li>
+		<li><a href="#" onclick="confirmDelete( {{user.pk}} )">Unregister</a> with Need a Nerd</li>
+		<li><a href="/accounts/passwordchange/">Change</a> your password</li>
+	</ul>
+</div>		
+{% endif %}
+
+{% if not user.is_authenticated %}
+
+	<!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1>Nerdsville!</h1>
+        <p class="lead">Need a Nerd is Auburn's best spot for nerds to find cuttng edge jobs, and employers to find grade A talent.</p>
+        <p>
+        <!--<a class="btn btn-lg btn-success" href="#" role="button"></a>-->
+		    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+		        Register and Get Started
+	        </button>
+	        <!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-footer">
+			      	<center>
+				      	Register me as an: <br/>
+				        <button type="button" id='nerdregbutton' class="btn btn-primary">Official Nerd</button>
+				        <button type="button" id='employerregbutton' class="btn btn-primary">Employer of Nerds</button>
+			        </center>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+        </p>
+      </div>
+{% endif %}
+
+{% if jobs %}
+	<div class="row">
+    {% for j in jobs %}
+		<div class="col-lg-4">
+          <h2>{{j.name}}</h2>
+          <p class="frontpagejobdesc">{{j.description}}</p>
+          <p><a class="btn btn-primary" href="/jobs/{{j.pk}}" role="button">View details &raquo;</a></p>
+        </div>
+     {% endfor %}
+    </div>
+{% else %}
+	<!--Need a Nerd does not have any jobs in its database-->
+{% endif %}
+
+{% endblock %}

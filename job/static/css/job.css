@@ -1,0 +1,34 @@
+#newjob 
+
+	#id_name {
+		width:25%;
+	}
+	
+	textarea#id_description {
+
+		width:75%;
+		font-family: Arial;
+		font-size: 20px;	
+		resize:none;
+		min-height:200px;
+		max-height:600px;
+		overflow: visible;
+
+	}
+	
+	textarea#id_skills {
+
+		width:50%;
+		font-family: Arial;
+		font-size: 20px;	
+		resize:none;
+		min-height:200px;
+		max-height:600px;
+		overflow: visible;
+
+	}
+	
+	#id_salary {
+		width:25%;
+	}
+}

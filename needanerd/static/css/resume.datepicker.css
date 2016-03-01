@@ -1,0 +1,5 @@
+<style type="text/css">
+	.ui-datepicker-calendar { display: none !important; }
+	.ui-datepicker-current, .ui-datepicker-next, .ui-datepicker-prev { display: none; }
+	.ui-datepicker-buttonpane button { float: right; }
+</style>

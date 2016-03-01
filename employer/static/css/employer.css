@@ -1,0 +1,17 @@
+#employer #description {
+	
+	width:100%;
+	font-family: Arial;
+	font-size: 20px;	
+	resize:none;
+	min-height:200px;
+	max-height:800px;
+	overflow: visible;
+	background-color:transparent;
+ 	
+}
+
+#employerstable {
+    table-layout: fixed;
+    word-wrap: break-word;
+}

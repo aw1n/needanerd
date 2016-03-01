@@ -1,0 +1,68 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block content %}
+
+ <div class="container">
+	
+	     <form class="form-signin" method="post" action="/accounts/login/">
+      {% csrf_token %}
+      
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input name="username" type="text" class="form-control" placeholder="Email" required autofocus/>
+        <input name="password" type="password" class="form-control" placeholder="Password" required/>
+        {% if nexturl %}
+        	<input type="hidden" name="next" value="{{nexturl}}" />
+        {% endif %}
+        <label class="checkbox">
+          <input type="checkbox" value="rememberme"/> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		
+        <br/><br/><br/><br/>
+        <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#myModal">
+		        Not Registered?
+	        </button>
+	        <!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-footer">
+			      	<center>
+				      	Register me as an: <br/>
+				        <button type="button" id='nerdregbutton' class="btn btn-primary">Offcial Nerd</button>
+				        <button type="button" id='employerregbutton' class="btn btn-primary">Employer of Nerds</button>
+			        </center>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+		<br/>
+		<a href="{{BASE_URL}}/accounts/password/reset/">Forget your password?</a>
+		<br/>		
+      </form>
+
+	
+    </div> <!-- /container -->
+    
+
+{% endblock %}
+
+<!--
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
+
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+-->
+
+

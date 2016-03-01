@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script type='text/javascript' src='/static/js/jquery-ui-1.10.3/jquery-1.9.1.js'></script>
+<script type='text/javascript' src='/static/js/jquery-ui-1.10.3/ui/jquery-ui.js'></script>
+<script type='text/javascript' src='/static/js/jquery.json-2.4.min.js'></script> 
+<script type='text/javascript' src='/static/js/needanerd.js'></script>
+<script type='text/javascript' src='/static/js/job.js'></script>
+<script type='text/javascript' src='/static/js/student.js'></script>
+<script type='text/javascript' src='/static/js/resume.js'></script>
+<link href="/static/css/needanerd.css" rel="stylesheet" />
+<link href="/static/css/resume.css" rel="stylesheet" />
+<link href="/static/css/jquery-ui.css" rel="stylesheet" />
+<link href="/static/css/jquery.ui.datepicker.css" rel="stylesheet" />
+<title>{% block header %}Need A Nerd{% endblock %}</title>
+</head>
+
+<body>
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1>Need A Nerd</h1>
+	</div>	
+	
+	<div id="menu">
+		<ul>
+			<li class="active"><a href="/">Home</a></li>
+			{% if user.is_authenticated %}
+				<li><a href="/profile/">Profile</a></li>
+				<!--
+				<li><a href="/nerdnews/">Nerd News</a></li>
+				-->
+				{% if user.userprofile.student %}
+					<li><a href="/jobs/apply/">Find Work</a></li>
+					<li><a href="/employers/">Find Employers</a></li>
+				{% endif %}	
+				{% if user.userprofile.employer %}
+					<li><a href="/students/">Find Students</a></li>
+					<li><a href="/jobs/list/">View All Job Listings</a></li>
+				{% endif %}
+				<li><a href="/contact/">Contact</a></li>					
+				<li><a href="/accounts/logout/">Logout</a></li>
+			{% else %}
+				<li><a href="/contact/">Contact</a></li>			
+				<li><a href="/accounts/login/">Login</a></li>
+			{% endif %}
+		</ul>
+	</div>
+</div>
+<hr />
+<!-- end header -->
+
+	<!-- <h2>{% block title %}Need A Nerd{% endblock %}</h2>  -->
+    
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+    
+    {% if user.is_authenticated %}
+    	<p>You are currently logged in as {{ user.username }}. Thanks for using NeedaNerd.</p>	    	    	
+	{% else %}
+    	<p>Welcome to NeedaNerd, please log in or register for a new account</p>
+    	<p>
+		<ul>
+			<li><a href='/students/register/'>Register as a Student</a></li>
+			<li><a href='/employers/register/'>Register as an Employer</a></li>
+		</ul>
+		</p>    
+	{% endif %}
+<!-- <p><a href='/'>Need a Nerd Home</a></p> -->
+<div id="acctmanagement">
+        {% block acctmanagement %}{% endblock %}
+</div>
+<div id="footer">
+<p id="legal"> &copy;2012 Auburn University. All Rights Reserved.
+</p>
+<p id="rss">Want to know the latest jobs in an ATOM feed? Use the link <a href="/feeds/">here</a> to get the latest Need a Nerd jobs</p>
+<p id="rss"><img src="/static/css/images/auburn_logo.jpg" alt="Auburn University" height="100" width="100"/></p>
+<!-- end footer -->
+</div> 
+</body>
+</html>

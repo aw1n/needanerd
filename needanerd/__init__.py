@@ -1,0 +1,2 @@
+studentgroupname='NeedaNerdStudents'
+employergroupname='NeedaNerdEmployers'

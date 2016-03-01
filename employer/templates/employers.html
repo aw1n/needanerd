@@ -1,0 +1,57 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}All Employers{% endblock %}
+
+{% block content %}
+<br /><br /><br /><br />
+{% if employers %}
+	<div class="container container-xs-height">
+	<table class="table table-striped table-hover table-responsive employerstable">
+	<tr>
+    	<th class="col-md-1">Company Name</th>
+    	<th class="col-md-1">On Campus?</th>
+    	<th class="col-md-2">Website</th>
+    	<th class="col-md-6">Description</th>
+    	<th class="col-md-1">Contact Employer</th>
+	</tr>
+	{% for employer in employers %}
+    	<tr row-xs-height>
+        	<td><a href='/employers/{{employer.pk}}/'>{{employer.userprofile.employer.company_name}}</a></td>
+        	{% if employer.userprofile.employer.oncampus %}
+        		<td>Yes</td>
+        	{% else %}
+        		<td>No</td>
+        	{% endif %}
+        	<td>
+        	{% if employer.userprofile.employer.website %}
+        		<a href='{{employer.userprofile.employer.website}}'>{{employer.userprofile.employer.website}}</a>
+        	{% else %}
+        		Not Provided
+        	{% endif %}
+        	</td>
+        	<td>{{employer.userprofile.employer.description|slice:":512"}}</td>
+        	<td><button class="btn btn-primary" onclick="window.location='/contact/{{employer.pk}}/'" >Contact</button></td>
+        	
+    	</tr>
+	{% endfor %}
+	</table>
+	</div>
+	<div class="pagination">
+    <span class="step-links">
+        {% if employers.has_previous %}
+            <a href="?page={{ employers.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ employers.number }} of {{ employers.paginator.num_pages }}.
+        </span>
+
+        {% if employers.has_next %}
+            <a href="?page={{ employers.next_page_number }}">Next</a>
+        {% endif %}
+    </span>
+    </div>
+{% else %}
+    There are no employers listed in the database.
+{% endif %}
+{% endblock %}

@@ -1,0 +1,108 @@
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link href="Need%20A%20Nerd_files/needanerd.css" rel="stylesheet">
+<link href="Need%20A%20Nerd_files/jquery-ui.css" rel="stylesheet">
+<link href="Need%20A%20Nerd_files/jquery.css" rel="stylesheet">
+<script type="text/javascript" src="Need%20A%20Nerd_files/needanerd.js"></script>
+<script type="text/javascript" src="Need%20A%20Nerd_files/job.js"></script>
+<script type="text/javascript" src="Need%20A%20Nerd_files/student.js"></script>
+<script type="text/javascript" src="Need%20A%20Nerd_files/resume.js"></script>
+<script type="text/javascript" src="Need%20A%20Nerd_files/jquery-1.js"></script>
+<script type="text/javascript" src="Need%20A%20Nerd_files/jquery-ui.js"></script>
+<script>
+$(function() {
+$( "#startdate_datepicker" ).datepicker({
+changeMonth: true,
+changeYear: true
+});
+});
+$(function() {
+$( "#enddate_datepicker" ).datepicker({
+changeMonth: true,
+changeYear: true
+});
+});
+</script>
+<title>Need A Nerd</title>
+</head>
+
+<body>
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1>Need A Nerd</h1>
+	</div>	
+	
+	<div id="menu">
+		<ul>
+			<li class="active"><a href="http://localhost:8888/">Home</a></li>
+			
+				<li><a href="http://localhost:8888/profile/">Profile</a></li>
+				<li><a href="http://localhost:8888/nerdnews/">Nerd News</a></li>
+					
+				
+					<li><a href="http://localhost:8888/students/">Find Students</a></li>
+					<li><a href="http://localhost:8888/jobs/list/">View All Job Listings</a></li>
+				
+				<li><a href="http://localhost:8888/contact/">Contact</a></li>					
+				<li><a href="http://localhost:8888/accounts/logout/">Logout</a></li>
+			
+		</ul>
+	</div>
+</div>
+<hr>
+<!-- end header -->
+
+	<!-- <h2>Add a Job</h2>  -->
+    
+    <div id="content">
+        
+
+<div class="register">
+	<p>
+		</p><form action="/jobs/add/" method="post">
+		<input name="csrfmiddlewaretoken" value="ks2WAFDvQ0vbIL19iVDLvIvnzSAnRpmX" type="hidden">
+		<div class="form_errors">
+			
+			ERROR: The start date cannot be before the current date
+		</div>
+		<p><label for="id_name">*Name:</label> <input id="id_name" maxlength="32" name="name" value="666" type="text"></p>
+<p><label for="id_description">*Description:</label> <textarea cols="50" id="id_description" name="description" rows="16">666</textarea></p>
+<p><label for="id_skills">*Skills:</label> <textarea cols="50" id="id_skills" name="skills" rows="4">666</textarea></p>
+<p><label for="id_salary">Salary Information:</label> <input id="id_salary" maxlength="16" name="salary" value="66" type="text"></p>
+<p><label for="id_released">Release for Viewing:</label> <input checked="checked" id="id_released" name="released" type="checkbox"></p>
+		<div class="fieldWrapper">
+	        
+	        <label for="id_startdate">*Start Date:</label>
+	        <input class="hasDatepicker" id="startdate_datepicker" name="startdate" type="text">
+	    </div>
+	    <br>
+	    <div class="fieldWrapper">
+	        
+	        <label for="id_enddate">*End Date: &nbsp;</label>
+	        <input class="hasDatepicker" id="enddate_datepicker" name="enddate" type="text">
+	    </div>
+	     <p><input value="Post Job" type="submit"></p>
+	</form>
+</div>
+
+    </div>
+    
+    
+    	<p>You are currently logged in as e1. Thanks for using NeedaNerd.</p>	    	    	
+	
+<!-- <p><a href='/'>Need a Nerd Home</a></p> -->
+<div id="acctmanagement">
+        
+</div>
+<div id="footer">
+<p id="legal"> ©2012 Auburn University. All Rights Reserved.
+</p>
+<p id="rss">Want to know the latest jobs in an ATOM feed? Use the link <a href="http://localhost:8888/feeds/">here</a> to get the latest Need a Nerd jobs</p>
+<p id="rss"><img src="Need%20A%20Nerd_files/auburn_logo.jpg" alt="Auburn University" height="100" width="100"></p>
+<!-- end footer -->
+</div> 
+
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div></body></html>

@@ -1,0 +1,15 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}Activate Need a Nerd{% endblock %}
+
+{% block content %}
+
+{% if offcampus %}
+	<p>Off campus employers must be activated by the Need a Nerd system administrator.<br />
+	   The system administrator has been sent an email notifying your request and will <br />
+	   notify you when your account his approved.</p>
+{% else %}
+	<p>Please use the email sent to your inbox to activate your account</p>	
+{% endif %}
+<br /><br /><br />
+{% endblock %}

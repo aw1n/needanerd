@@ -1,0 +1,282 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}{{student.first_name}} {{student.last_name}}'s Profile{% endblock %}
+
+{% block content %}
+
+{% if student %}
+
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Sync With LinkedIn</h4>
+	            </div>
+	            <div class="modal-body">
+                    <p>You are about to sync your NaN Profile with your LinkedIn Profile</p>
+                    <p>This procedure is irreversible.</p>
+                    <p>If successful, you will lose your current NaN Profile Data</p>
+                    <p>Do you want to proceed? This operation may take a several seconds</p>
+                </div>
+	            <div class="modal-footer">
+	                <div class="container">
+				    	<div class="row">
+					        <div class="col-sm-3 social-buttons">
+								<a id="studentlinkedin" class="btn btn-block btn-social btn-sm btn-linkedin">
+									<i class="fa fa-linkedin"></i> LinkedIn Sync
+								</a>
+							</div>
+							<div class="col-sm-2 social-buttons">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						    </div>
+					  	</div>	
+					</div>
+	            </div>
+	        </div>
+	    </div>
+    </div>
+	
+	{% ifequal student.pk user.pk %}
+	<div class="container">
+      <div class="row">
+        <div class="col-sm-4 social-buttons">
+			<a class="btn btn-block btn-social btn-lg btn-linkedin" data-toggle="modal" data-target="#confirm-delete" >
+				<i class="fa fa-linkedin"></i> Sync Data with LinkedIn
+			</a>
+	    </div>	
+	  </div>
+	</div>
+	{% endifequal %}
+	
+	{% if resume %}
+		<input type="hidden" id="resumepk" value="" />
+		<script language='JavaScript'>
+			resumepk=$("#resumepk");
+			resumepk.val(jQuery.parseJSON(JSON.stringify({{resume|safe}}))[0].pk);
+		</script>		
+	{% else %}
+	{% endif %}
+	<br />
+	{% if hasCRUDPrivs %}
+    		Jobs:
+    		{% if jobs %}
+	        	<a href='/jobs?student={{student.id}}' >Show Job Applications</a>
+	    	{% else %}
+	    	  	No Outstanding Job Applications at this time
+	    	{% endif %}
+	    	<br /><br />
+	    	<p><a href='/jobs/apply/'>Apply For a New Job</a></p>
+	{% else %}
+		
+		Student Email: <a href='mailto:{{student.email}}' >{{student.email}}</a>
+		  
+		
+	{% endif %}
+    
+    
+    <br />
+	<form>
+	{% csrf_token %}
+	<br />
+	<br />
+	<hr class="style-four"/>
+	<div id="summarydiv">
+		<p class="lead">
+			<span class="glyphicon glyphicon-list-alt glyphicon-2x"></span> Summary
+			<div id="nosummary">
+			</div>
+		</p>
+		<div id="summarybtns">
+			{% if hasCRUDPrivs %}
+			<button id='addsummary' type="button" class="summarybtn btn-lg">
+				<span class="glyphicon glyphicon-plus-sign"></span> Add Summary
+			</button>
+			{% endif %}
+		</div>
+		
+		
+		<div id="summary">
+		{% if resume %}
+			{% if hasCRUDPrivs %}
+				<script language='JavaScript'>$( document ).ready(loadInitSummary(false, {{resume|safe}}));</script>
+			{% else %}
+				<script language='JavaScript'>$( document ).ready(loadInitSummary(true, {{resume|safe}}));</script>
+			{% endif %}
+		{% endif %}
+		</div>	
+	</div>
+	<hr class="style-four"/>
+	<div id='degrees'>
+		<p class="lead">
+			<span class="glyphicon glyphicon-book glyphicon-2x"></span> Education
+			<div id="noeducation">
+			{% ifequal degrees "[]" %}
+			<p><h4><br/>---Not added yet---<br/><br/></h4></p>
+			{% endifequal %}
+			</div>
+		</p>
+		{% if hasCRUDPrivs %}
+			<button id='adddegree' type="button" class="btn-lg">
+				<span class="glyphicon glyphicon-plus-sign"></span> Add Degree
+			</button>
+		{% endif %}
+		<div id='newdegree'>
+		</div>
+		<div id='saveddegrees'>
+		{% if degrees %}
+			{% if hasCRUDPrivs %}
+				<script language='JavaScript'>$( document ).ready(loadInitDeg(false, {{degrees|safe}}));</script>
+			{% else %}
+				<script language='JavaScript'>$( document ).ready(loadInitDeg(true, {{degrees|safe}}));</script>
+			{% endif %}
+		{% endif %}
+		</div>
+	</div>
+	<hr class="style-four"/>
+	<div id='jobs'>
+		<p class="lead">
+			<span class="glyphicon glyphicon-briefcase glyphicon-2x"></span> Work History
+			<div id="nojobs">
+			{% ifequal empls "[]" %}
+			<p><h4><br/>---Not added yet---<br/><br/></h4></p>
+			{% endifequal %}
+			</div>
+		</p>
+		{% if hasCRUDPrivs %}
+			<button id='addjob' type="button" class="btn-lg">
+				<span class="glyphicon glyphicon-plus-sign"></span> Add Work History
+			</button>
+		{% endif %}
+		<div id='newjob'>
+		</div>
+		<div id='savedjobs'>
+		{% if empls %}
+			{% if hasCRUDPrivs %}
+				<script language='JavaScript'>$( document ).ready(loadInitEmpls(false, {{empls|safe}}));</script>
+			{% else %}
+				<script language='JavaScript'>$( document ).ready(loadInitEmpls(true, {{empls|safe}}));</script>
+			{% endif %}
+		{% endif %}
+		</div>
+	</div>
+	<hr class="style-four"/>
+	<div id='skills'>
+		<p class="lead">
+			<span class="glyphicon glyphicon-pencil glyphicon-2x"></span> Skills/Coursework
+			<div id="noskills">
+			{% ifequal skills "[]" %}
+			<p><h4><br/>---Not added yet---<br/><br/></h4></p>
+			{% endifequal %}
+			</div>
+		</p>
+		{% if hasCRUDPrivs %}
+			<button id='addskill' type="button" class="btn-lg">
+				<span class="glyphicon glyphicon-plus-sign"></span> Add Skills/Coursework
+			</button>
+		{% endif %}
+		<div id='newskill'>
+		</div>
+		<div id='savedskills'>
+		{% if skills %}
+			{% if hasCRUDPrivs %}
+				<script language='JavaScript'>$( document ).ready(loadInitSkills(false, {{skills|safe}}));</script>
+			{% else %}
+				<script language='JavaScript'>$( document ).ready(loadInitSkills(true, {{skills|safe}}));</script>
+			{% endif %}
+		{% endif %}
+		
+		</div>
+	</div>
+	<hr class="style-four"/>
+	<p>
+	<p class="lead">
+			<span class="glyphicon glyphicon-folder-open glyphicon-2x"></span> Certifications
+			<div id="nocerts">
+			{% ifequal certs "[]" %}
+			<p><h4><br/>---Not added yet---<br/><br/></h4></p>
+			{% endifequal %}
+			</div>
+	</p>
+	{% if hasCRUDPrivs %}
+		<button id='addcert' type="button" class="btn-lg">
+			<span class="glyphicon glyphicon-plus-sign"></span> Add a Certification
+		</button>
+	{% endif %}
+	<div id='newcert'>
+	</div>
+	<div id='savedcerts'>
+	{% if certs %}
+		{% if hasCRUDPrivs %}
+			<script language='JavaScript'>$( document ).ready(loadInitCerts(false, {{certs|safe}}));</script>
+		{% else %}
+			<script language='JavaScript'>$( document ).ready(loadInitCerts(true, {{certs|safe}}));</script>
+		{% endif %}
+	{% endif %}
+	</div>
+	</p>
+	<hr class="style-four"/>
+	</form>
+
+    
+    <br />
+    {% if reviews %}
+    <div style='font-style:italic;'>
+		<p>Reviews about this Student:</p>
+	</div>
+    <table class="profile">
+	    <tr width="100%">
+	    	<th>Star Rating</th>
+	    	<th>Date</th>
+	        <th>Employer</th>
+	        <th>Comments</th>
+	    </tr>
+	    {% for review in reviews %}
+		    <tr width="100%" onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+	        	{% if review.rating == 5 %}
+	        		<td><img src="/static/css/images/5stars.png" /></td>
+	        	{% elif review.rating == 4 %}
+	        		<td><img src="/static/css/images/4stars.png" /></td>
+	        	{% elif review.rating == 3 %}
+	        		<td><img src="/static/css/images/3stars.png" /></td>
+	        	{% elif review.rating == 2 %}
+	        		<td><img src="/static/css/images/2stars.png" /></td>
+	        	{% else %}
+	        		<td><img src="/static/css/images/1star.png" /></td>
+	        	{% endif %}
+	        	<td>{{review.created_at|date:'b d Y'|upper}}</a></td>
+	        	<td>{{review.employer.company_name}}</td>
+	        	<td>{{review.comments}}</td>
+	    	</tr>
+		{% endfor %}
+		<div class="pagination">
+	    	<span class="step-links">
+	        {% if reviews.has_previous %}
+	            <a href="?page={{ reviews.previous_page_number }}">Previous</a>
+	        {% endif %}
+	
+	        <span class="current">
+	            Page {{ reviews.number }} of {{ reviews.paginator.num_pages }} reviews.
+	        </span>
+	
+	        {% if reviews.has_next %}
+	            <a href="?page={{ reviews.next_page_number }}">Next</a>
+	        {% endif %}
+	    	</span>
+		</div>		
+	</table>
+	{% endif %}
+{% endif %}
+{% endblock %}
+{% block acctmanagement %}
+{% ifequal user.userprofile.student.pk student.userprofile.student.pk %}
+<ul>
+	<li><a href="/students/edit/{{user.pk}}/" >Edit Profile</a></li>
+	<li><a href="#" onclick="confirmDelete( {{user.pk}} )">Unregister</a> with Need a Nerd</li>
+	<li><a href="/accounts/passwordchange/">Change</a> your password</li>
+</ul>
+{% else %}
+{{user.userprofile.student.pk}}
+{{student.userprofile.student.pk}}
+{% endifequal %}
+{% endblock %}

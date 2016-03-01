@@ -1,0 +1,57 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}Contact Need a Nerd{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+	<br/>
+    {% for field in form %}
+        {% for error in field.errors %}
+           		<div class="alert alert-danger">
+                <strong>{{ error|escape }}: {{field.label}}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+     		<div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<br/>
+<div class="container" width="90%" >
+	<form class="well span8" method="post" >
+		{% csrf_token %}
+        <div class="row">
+            <div class="col-md-3">
+                <label>First Name:</label><br/><input name="first" id="first" class="span3" placeholder="Your First Name" type="text">
+                <br/><br/><label>Last Name:</label><br/><input name="last" id="last" class="span3" placeholder="Your Last Name" type="text">
+                <br/><br/><label>Email Address:</label><br/><input name="email" id="email" class="span3" placeholder="Your email address" type="text">
+                <br/><br/><label>Subject: </label><br/>
+                <select class="span3" id="subject" name="subject">
+                    <option value="general">
+                        General
+                    </option>
+    
+                    <option value="suggestions">
+                        Suggestions
+                    </option>
+    
+                    <option value="website">
+                        Website Problems
+                    </option>
+                </select>
+            </div>
+    
+            <div class="col-md-6">
+                <label>Message:</label><textarea class="form-control" id="message" name="message" rows="10"></textarea>
+                <br/>
+                <button class="btn btn-primary pull-right" type="submit">Send</button>
+            </div>            
+        </div>
+    </form>
+</div>
+
+{% endblock %}

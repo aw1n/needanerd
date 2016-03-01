@@ -1,0 +1,55 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}Contact Need a Nerd{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+	<br/>
+    {% for field in form %}
+        {% for error in field.errors %}
+           		<div class="alert alert-danger">
+                <strong>{{ error|escape }}: {{field.label}}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+     		<div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<br/>
+
+<div class="container" width="90%" >
+	
+	<form class="well span8" method="post" >
+		{% csrf_token %}
+		
+		{% if user.first_name %}
+			<p>Contacting {{ user.first_name }} {{ user.last_name }}</p>
+		{% elif user.userprofile.employer.company_name %}
+			<p>Contacting {{user.userprofile.employer.company_name}}</p>
+		{% endif %}
+		
+		<div class="row">
+            <div class="col-md-4">
+                <label for="id_subject" class="control-label">Subject:</label><input id="id_subject" name="subject" class="form-control" placeholder="Subject" type="text"/>
+            </div>
+            <br/>
+            <div class="col-md-4">
+                <label for="id_cc_myself" class="control-label">Copy Myself:</label><input id="id_cc_myself" name="cc_myself" type="checkbox" />
+            </div>
+    	</div>
+    	<div class="row">
+            <div class="col-md-10">
+                <label>Message:</label><textarea class="form-control" id="id_message" name="message" rows="10"></textarea>
+                <br/>
+                <button class="btn btn-primary pull-left" type="submit">Send</button>
+            </div>            
+        </div>
+    </form>
+</div>
+
+{% endblock %}

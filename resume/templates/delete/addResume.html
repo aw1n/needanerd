@@ -1,0 +1,50 @@
+<!-- 
+Note: I could have also added multiple various Django forms on the same page by either:
+1. Generating them in the view and passing them to the template
+2. Use a formset.
+
+I decided against both these approaches because the # of skills, employers, and certifications would not be dynamic since they would be determined at render time.
+ -->
+ 
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}Add Resume{% endblock %}
+
+{% block content %}
+{% if student %}
+<br /><br /><br />
+<form action="/resumes/add/" method="post">
+{% csrf_token %}
+{{ resumeform.as_p }}
+	
+<p>
+<table id='employerstable'>
+</table>
+<input type="button" value="Add Work History" />
+</p>
+
+<p>
+<!-- <ul><li></li></ul> -->
+<table id='skillstable'>
+</table>
+<input type="button" value="Add Skills/Coursework" />
+</p>
+
+<p>
+<input id="addCertButton" type="button" value="Add Certification" />
+<table id='certificationstable' >
+</table>
+</p>
+
+<!--
+<p>
+<input type="submit" value="Submit" />
+</p>
+-->
+
+</form>
+
+{% else %}
+Student data unavailable
+{% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "need_a_nerd_base.html" %}
+
+{% block title %}Need a Nerd Account Confirmation{% endblock %}
+
+{% block content %}
+
+{% if has_account %}
+	<p>You already have an account. Make sure you are not logged in as someone else if you are trying to activate a new account</p>	
+{% elif expired %}
+	<p>You are outside of the expiration period.  You must re-register</p>	
+{% elif success %}
+	<p>Congratulations your account is now activated.</p>	
+{% else %}
+	<p>An error has occurred</p>	
+{% endif %}
+<br></br>
+{% endblock %}
