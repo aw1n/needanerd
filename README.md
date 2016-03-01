@@ -20,7 +20,7 @@ Build and run in a docker container
 cd dockerfiles/
 docker build --tag=needanerd-web .
 docker run -it -p 8888:8888 needanerd-web
-docker run -it --link nan-postgres -p 8888:8888 needanerd-web
+docker run -it -d --link nan-postgres -p 8888:8888 needanerd-web
 
 Verify the connection with:
 export PGPASSWORD='AuburnUniversity2016!'; psql -h localhost -p 5432 -U nerd -w nan_db
