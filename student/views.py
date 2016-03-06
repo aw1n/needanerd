@@ -1,7 +1,7 @@
 import json
 import time
 
-#from lxml import etree as ElementTree
+from lxml import etree as ElementTree
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from student.models import StudentUserCreationForm, StudentUserEditForm, StudentSearch
@@ -144,12 +144,15 @@ def student_detail(request, student_id):
         
         context = "/uas/oauth2/accessToken?grant_type=authorization_code&code="+accesscode+"&redirect_uri="+settings.HOST+""+request.path+"&client_id="+settings.LINKED_IN_API_KEY+"&client_secret="+settings.LINKED_IN_SECRET_KEY
         logger.debug('context='+context)
-        conn.putrequest("POST", context)
-        'Python bug, httplib should be auto calculating the content-length but its not, so we are setting it to 0'
-        header = {'content-length' : '0'}
-        conn.putheader(header)
-        conn.endheaders()
-        conn.send("")
+        #conn.putrequest("POST", context)
+        #'Python bug, httplib should be auto calculating the content-length but its not, so we are setting it to 0'
+        #header = {'content-length' : '0'}
+        headers = { 'Content-Type' : 'application/x-www-form-urlencoded' }
+        #conn.putheader(header)
+        #conn.endheaders()
+        #conn.set_debuglevel(1)
+        #conn.send("")
+        conn.request("POST", context, '', headers)
         
         'Expecting a JSON response'
         responsestr = conn.getresponse().read()
@@ -188,14 +191,14 @@ def student_detail(request, student_id):
             
             logger.debug('Deleting previous resumes, we are now syncing with LinkedIn')
             Resume.objects.filter(student=u.userprofile.student).delete()
-        '''
+        
         tree = ElementTree.fromstring(respstr)
         if tree is None:
             logger.debug("Tree is not valid!!!")
             return HttpResponseRedirect(reverse_lazy('home'))
         
-        '''
-        '''Create new resume
+        
+        '''Create new resume'''
         logger.debug('Creating new resume...')
         r = Resume()
         
@@ -204,8 +207,8 @@ def student_detail(request, student_id):
         r.student=u.userprofile.student
         r.save()
         logger.debug('r.objective: '+r.objective)   
-        '''
-        '''Create new work history
+        
+        '''Create new work history'''
         positions = tree.findall('positions/position') 
         empls = []
         for p in positions:
@@ -246,8 +249,8 @@ def student_detail(request, student_id):
             
             e.save()
             empls.append(e)
-        '''
-        '''Create new education history
+        
+        '''Create new education history'''
         educations = tree.findall('educations/education')
         degrees = []
         for e in educations:
@@ -272,8 +275,8 @@ def student_detail(request, student_id):
                 d.date=endyear.text
             d.save()
             degrees.append(d)
-        '''
-        '''Create new skillset
+        
+        '''Create new skillset'''
         skills = tree.findall('skills/skill') 
         skillsarr = []
         for s in skills:
@@ -286,8 +289,8 @@ def student_detail(request, student_id):
                 logger.debug('Adding skill...')
                 s.save()
                 skillsarr.append(s)
-        '''
-        '''Create new certifications
+        
+        '''Create new certifications'''
         certs = tree.findall('certifications/certification')
         certsarr = []
         for c in certs:
@@ -303,16 +306,19 @@ def student_detail(request, student_id):
                 c.save()
                 certsarr.append(c)
         
-            resume_json = serializers.serialize("json", [r])
-            degrees_json  = serializers.serialize("json", degrees)
-            employers_json  = serializers.serialize("json", empls)
-            skills_json  = serializers.serialize("json", skillsarr)
-            certs_json  = serializers.serialize("json", certsarr)
-            logger.debug('resume str: ' + resume_json)
+        resume_json = serializers.serialize("json", [r])
+        degrees_json  = serializers.serialize("json", degrees)
+        employers_json  = serializers.serialize("json", empls)
+        skills_json  = serializers.serialize("json", skillsarr)
+        certs_json  = serializers.serialize("json", certsarr)
+        logger.debug('resume str: ' + resume_json)
 
-        msg = "Successfully synced with LinkedIn!"
-        return render_to_response('student_detail.html', {'msg':msg, 'hasCRUDPrivs': True, 'student': u, 'resume': resume_json, 'jobs': j, 'degrees': degrees_json, 'skills': skills_json, 'certs': certs_json, 'empls': employers_json}, context_instance=RequestContext(request))
-        '''
+        #msg = "Successfully synced with LinkedIn!"
+        request.session['msg'] = 'Successfully synced with LinkedIn!'
+        return HttpResponseRedirect(reverse_lazy('profile'))
+        
+        #return render_to_response('student_detail.html', {'msg':msg, 'hasCRUDPrivs': True, 'student': u, 'resume': resume_json, 'jobs': j, 'degrees': degrees_json, 'skills': skills_json, 'certs': certs_json, 'empls': employers_json}, context_instance=RequestContext(None))
+        
     else:
         
         '''
@@ -344,6 +350,7 @@ def student_detail(request, student_id):
         else:
             logger.debug('Resume was not found for the student')
             return render_to_response('student_detail.html', {'msg':msg,'hasCRUDPrivs': True, 'student': u,'jobs': j}, context_instance=RequestContext(request))
+        
             
 @login_required
 def studentsearch(request):     

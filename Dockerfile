@@ -14,12 +14,15 @@ RUN yum -y install epel-release; yum clean all
 RUN yum -y install python-pip; yum clean all
 RUN yum -y install python-django python-devel git sqlite; yum clean all
 RUN yum -y install gcc make; yum clean all
+RUN yum -y install libxslt-devel libxml2-devel libxml2 libxslt python-lxml; yum clean all
+
 RUN yum -y install postgresql postgresql-contrib postgresql-devel; yum clean all
 
 # Build tools so that we can build Python from source
 RUN yum -y group install 'Development Tools'
 RUN yum -y install tar
 
+RUN pip install lxml
 RUN pip install psycopg2 
 RUN pip install django=="$DJANGO_VERSION"
 

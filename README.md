@@ -1,5 +1,10 @@
 # needanerd
 
+Notes:
+- SSL is always required. This is a best practice as followed by most social networkig sites.  Performance is degredaded slightly however with the requirement.
+- Django admin interface is still active, which is not a best practice and should be at least limited by IP or protected by other security measures
+- DEBUG = True. Before going to production turn DEBUG to OFF for performance and security reasons: https://docs.djangoproject.com/en/1.9/howto/error-reporting/
+
 Source code is available here: https://github.com/johnfosborneiii/needanerd
 
 To run the Docker Container

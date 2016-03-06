@@ -13,6 +13,7 @@
 	<link href="/static/css/jquery.ui.datepicker.css" rel="stylesheet" type="text/css" />
     <link href="/static/css/signin.css" rel="stylesheet" type="text/css" />
 	<link href="/static/css/social-buttons.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/bootstrap-social.css" rel="stylesheet" type="text/css" />
 	<link href="/static/css/resume.css" rel="stylesheet" type="text/css" />
 	<link href="/static/css/employer.css" rel="stylesheet" type="text/css" />
 	<link href="/static/css/job.css" rel="stylesheet" type="text/css" />
@@ -115,6 +116,7 @@
     	<div id="welcomeuser">
     		<p class="text-right"><a class="" href="/accounts/login/" >Welcome, new user. Please log in.</a></p>
     	</div>
+    	
 	  {% endif %}
 	  
 	  <h1 id="nerdheader1" >Need <img id="logo" src="/static/img/auburn_logo.jpg" alt="Auburn University" class="img-rounded" /> Nerd</h1>
@@ -138,9 +140,9 @@
 	  
       <div class="masthead">
         <ul class="nav nav-justified nav-tabs" id="myTab">
-          <li id="lihome"><a href="/" data-toggle="tab">Home</a></li>
           {% if user.is_authenticated %}
-				<!--
+          		<li id="lihome"><a href="/" data-toggle="tab">Home</a></li>
+             	<!--
 				<li><a href="/nerdnews/">Nerd News</a></li>
 				-->
 				{% if user.userprofile.student %}
@@ -160,8 +162,8 @@
 				<li id="licontact" ><a href="/contact/">Contact</a></li>					
 				<li id="lilogout"><a href="/accounts/logout/">Logout</a></li>
 			{% else %}
-				<li id="licontact"><a href="/contact/">Contact</a></li>			
-				<li id="lilogin"><a href="/accounts/login/">Login</a></li>
+				
+				
 			{% endif %}
         </ul>
       </div>

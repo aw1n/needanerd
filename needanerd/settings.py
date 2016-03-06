@@ -1,20 +1,23 @@
-import os
+LINKED_IN_URL = 'www.linkedin.com'
+LINKED_IN_API_URL = 'api.linkedin.com'
+LINKED_IN_API_KEY = '77ec2qizij7hrp'
+LINKED_IN_SECRET_KEY = '8sCUZ28BGhWYFY99'
 
 
 #Default session is one hour unless the user hits the "Remember Me" Button
 SESSION_COOKIE_AGE=3600
 
 # a setting to determine whether we are running on OpenShift
-ON_OPENSHIFT = False
-if os.environ.has_key('OPENSHIFT_REPO_DIR'):
-    ON_OPENSHIFT = True
+IN_DOCKER = False
+#if os.environ.has_key('OPENSHIFT_REPO_DIR'):
+#    ON_OPENSHIFT = True
     
-if ON_OPENSHIFT:
+#if ON_OPENSHIFT:
     #I am exclusively using this in the .py files. In the templates there is a {{BASE_URL}} given from the context processors to provide the status
     #This app is currently using Django 1.6 but in Django 1.7 you would not need to set a variable, you can use request.scheme()+request.get_host()
-    HOST = 'https://non-josborne.rhcloud.com'
-else:
-    HOST = 'http://localhost:8888'
+#    HOST = 'https://non-josborne.rhcloud.com'
+#else:
+HOST = 'http://localhost:8888'
     
 APPEND_SLASH = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -37,14 +40,24 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
+if IN_DOCKER:
+    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'nan_db',
+            'USER': 'nerd',
+            'PASSWORD': 'AuburnUniversity2016!',
+            'HOST': '$DB_PORT_5432_TCP_ADDR',                      
+            'PORT': '$DB_PORT_5432_TCP_PORT',
+        }
+    }
+    
+else:
+    DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'nan_db',
-        'USER': 'nerd',
-        'PASSWORD': 'AuburnUniversity2016!',
-        'HOST': '$DB_PORT_5432_TCP_ADDR',                      
-        'PORT': '$DB_PORT_5432_TCP_PORT',
     }
 }
 
