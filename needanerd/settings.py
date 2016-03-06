@@ -3,6 +3,11 @@ LINKED_IN_API_URL = 'api.linkedin.com'
 LINKED_IN_API_KEY = '77ec2qizij7hrp'
 LINKED_IN_SECRET_KEY = '8sCUZ28BGhWYFY99'
 
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '77ec2qizij7hrp'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = '8sCUZ28BGhWYFY99'
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://localhost:8888/'
+SOCIAL_AUTH_LOGIN_URL = '/'
 
 #Default session is one hour unless the user hits the "Remember Me" Button
 SESSION_COOKIE_AGE=3600
@@ -81,6 +86,8 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "django.core.context_processors.request",
                 "needanerd.context_processors.baseurl",
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -173,6 +180,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
     'appsecurity',
     'student',
     'employer',
@@ -185,6 +193,13 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     #'bootstrap3',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.linkedin.LinkedinOAuth2',
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 # A sample logging configuration. The only tangible logging

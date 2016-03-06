@@ -4,7 +4,7 @@
 #from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
@@ -17,6 +17,7 @@ from resume.models import Resume
 from django.core.mail import send_mail
 import datetime, random, sha, logging
 from django.conf import settings
+
 
 #from django.contrib.auth.decorators import user_passes_test, login_required
 from django.utils import timezone

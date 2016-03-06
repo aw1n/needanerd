@@ -17,6 +17,7 @@ urlpatterns = [
     
     #django auth
     url(r'^login/$', appsecurity.views.login_user),
+    url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^logout/$', django.contrib.auth.views.logout_then_login,
                           {'login_url': '/accounts/login/'}),
     #url(r'^password/reset/$', 'django.contrib.auth.views.password_reset',{'post_reset_redirect': reverse_lazy('profile')}),
