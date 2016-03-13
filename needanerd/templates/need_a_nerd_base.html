@@ -110,7 +110,8 @@
 	<div class="container">
 {% if user.is_authenticated %}
 	  	<div id="welcomeuser">
-			<p class="text-right"><a class="" href="/profile/" >Welcome {{ user.first_name }}</a></p> 
+			<p class="text-right"><a class="" href="/profile/" >Welcome {{ user.first_name }} </a></p>
+			<p class="text-right"><a class="" href="/accounts/logout/" >Logout</a></p>  
 		</div>
 	  {% else %}
     	<div id="welcomeuser">

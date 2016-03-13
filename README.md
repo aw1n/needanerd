@@ -30,3 +30,14 @@ docker run -it -d --link nan-postgres -p 8888:8888 needanerd-web
 Verify the connection with:
 export PGPASSWORD='AuburnUniversity2016!'; psql -h localhost -p 5432 -U nerd -w nan_db
 
+To setup with OpenShift
+1. Install the database:
+oc new-app --docker-image=centos/postgresql-94-centos7 -e POSTGRESQL_USER=nerd -e POSTGRESQL_PASSWORD=AuburnUniversity2016! -e POSTGRESQL_DATABASE=nan_db
+
+2. Install Need A Nerd
+Run the following command from the same directory as the Dockerfile
+oc new-app --strategy=docker .
+
+Beware of pushing to docker hub, you may need to change the ~/.docker/config.json file:
+https://forums.docker.com/t/docker-push-not-working-in-1-8-1-not-logged-in/2894/19
+

@@ -13,11 +13,14 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import requires_csrf_token
 from needanerd.views import isStudent, isEmployer, isAdmin
+from student.models import Student
 from resume.models import Resume
 from django.core.mail import send_mail
 import datetime, random, sha, logging
 from django.conf import settings
-
+from needanerd import studentgroupname
+from django.contrib.auth.models import User, Group
+from social.apps.django_app.middleware import SocialAuthExceptionMiddleware
 
 #from django.contrib.auth.decorators import user_passes_test, login_required
 from django.utils import timezone
@@ -28,6 +31,10 @@ import logging, datetime
 
 # Get an instance of a logger
 logger = logging.getLogger('NeedANerd.custom')
+
+
+ 
+
 
 @requires_csrf_token
 def login_user(request):
@@ -70,8 +77,27 @@ def login_user(request):
             return render_to_response('registration/login.html', {'nexturl':nexturl},context_instance=RequestContext(request))
         else:
             return render_to_response('registration/login.html', context_instance=RequestContext(request))
-    
-    
+        
+@login_required
+def social_login_post_processing(request):
+
+    if request.user.is_authenticated():
+        studentgroup = Group.objects.get_or_create(name=studentgroupname)
+        user = get_object_or_404(User, username=request.user.username)
+        
+        newStudent=Student()
+        newStudent.userprofile=user.userprofile
+        newStudent.save()
+        user.userprofile.student=newStudent
+        user.userprofile.save()
+        studentgroup = Group.objects.get_or_create(name=studentgroupname)
+        user.groups.add(studentgroup[0])
+        user.save()
+        
+        return HttpResponseRedirect(reverse_lazy('profile'))
+    else:
+        return HttpResponseRedirect(reverse_lazy('home'))
+
 def activate(request):
     logger.debug('activate called')
     if 'oncampus' in request.GET:

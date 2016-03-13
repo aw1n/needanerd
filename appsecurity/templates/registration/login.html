@@ -5,12 +5,12 @@
 <div class="container">
     
     <div class="alert alert-success" style="text-align:center">
-    		<strong>Employers must go through the registration process to post jobs</strong>
+    		<strong>Employers must register through email</strong>
 		</div>
     <div class="omb_login">
     			<div class="row omb_row-sm-offset-3 omb_socialButtons">
     	    <div class="col-xs-4 col-sm-2">
-		        <a class="btn btn-lg btn-block btn-social btn-facebook">
+		        <a href="{% url 'social:begin' backend='facebook' %}" class="btn btn-lg btn-block btn-social btn-facebook">
     				<span class="fa fa-facebook"></span> Facebook &nbsp;&nbsp;&nbsp;
   				</a>
 	        </div>
@@ -20,7 +20,7 @@
   				</a>
 	        </div>	
         	<div class="col-xs-4 col-sm-2">
-  				<a class="btn btn-lg btn-block btn-social btn-google">
+  				<a href="{% url 'social:begin' backend='google-oauth2' %}" class="btn btn-lg btn-block btn-social btn-google">
             		<span class="fa fa-google-plus"></span> Google+ &nbsp;&nbsp;&nbsp;
             	</a>
 	        </div>

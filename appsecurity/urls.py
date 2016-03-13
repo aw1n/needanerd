@@ -17,6 +17,7 @@ urlpatterns = [
     
     #django auth
     url(r'^login/$', appsecurity.views.login_user),
+    url(r'^socialloginpost/$', appsecurity.views.social_login_post_processing),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^logout/$', django.contrib.auth.views.logout_then_login,
                           {'login_url': '/accounts/login/'}),
