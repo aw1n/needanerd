@@ -11,32 +11,15 @@ MAINTAINER John Osborne <johnfosborneiii@gmail.com>
 ENV DJANGO_VERSION 1.9.2
 
 #Clear the local client cache
-CMD rm -fr /var/cache/yum/*
-RUN yum clean all
+#CMD rm -fr /var/cache/yum/*
+#RUN yum clean all
 
 # Update sources
-RUN yum -y install epel-release; yum clean all
-RUN yum -y install python-pip; yum clean all
-RUN yum -y install python-django; yum clean all
-RUN yum -y install python-devel; yum clean all
-RUN yum -y install git; yum clean all
-RUN yum -y install sqlite; yum clean all
-RUN yum -y install gcc make; yum clean all
-RUN yum -y install libxslt-devel; yum clean all
-RUN yum -y install libxml2-devel; yum clean all
-RUN yum -y install libxml2; yum clean all
-RUN yum -y install libxslt; yum clean all
-RUN yum -y install python-lxml; yum clean all
-RUN yum -y install python-openid; yum clean all
-RUN yum -y install python-requests-oauthlib; yum clean all
-RUN yum -y install postgresql; yum clean all
-RUN yum -y install postgresql-contrib; yum clean all
-RUN yum -y install postgresql-devel; yum clean all
-RUN yum -y install bind-utils; yum clean all
-
-# Build tools so that we can build Python from source
-#RUN yum -y group install 'Development Tools'
-#RUN yum -y install tar
+RUN yum -y install epel-release bind-utils; yum clean all
+RUN yum -y install git sqlite gcc make; yum clean all
+RUN yum -y install python-pip python-django python-devel python-lxml python-openid python-requests-oauthlib; yum clean all
+RUN yum -y install libxslt-devel libxml2-devel libxml2 libxslt; yum clean all
+RUN yum -y install postgresql postgresql-contrib postgresql-devel; yum clean all
 
 RUN pip install lxml==3.4.4
 RUN pip install psycopg2==2.6.1

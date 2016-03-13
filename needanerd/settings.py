@@ -6,7 +6,7 @@ IS_IN_DOCKER_CONTAINER=os.path.isfile('/.dockerinit')
 ON_OPENSHIFT=os.environ.has_key('ON_OPENSHIFT')
 
 if ON_OPENSHIFT:
-    HOST = 'https://needanerd-josborne-project.apps.rhsademo.net'
+    HOST = 'http://needanerd-josborne-project.apps.rhsademo.net'
 else:
     HOST = 'http://localhost:8888'
 
