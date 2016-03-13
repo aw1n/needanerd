@@ -60,7 +60,7 @@ if ON_OPENSHIFT:
             'NAME': 'nan_db',
             'USER': 'nerd',
             'PASSWORD': 'AuburnUniversity2016!',
-            'HOST': 'postgresql-94-centos7.service.josborne-project.svc.cluster.local',                      
+            'HOST': 'postgresql-94-centos7.josborne-project.svc.cluster.local',                      
             'PORT': '5432',
         }
     }
