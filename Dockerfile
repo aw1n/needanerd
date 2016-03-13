@@ -44,7 +44,7 @@ RUN pip install django=="$DJANGO_VERSION"
 RUN pip install python-social-auth==0.2.14
 
 #This cache bust makes sure the docker build gets the latest code from github
-ARG CACHEBUST=1 
+ARG CACHEBUST=1
 RUN git clone https://github.com/johnfosborneiii/needanerd 
 
 # Port to expose
