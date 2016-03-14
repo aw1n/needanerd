@@ -20,6 +20,13 @@
         {% endfor %}
     {% endfor %}
 	{% endif %}
+	{% if form.date_errors %}
+	<br/>
+    <div class="alert alert-danger">
+                <strong>{{form.date_errors}}</strong>
+                </div>
+    {% endif %}
+	
 		<div id="newjob">
 		
 			{% csrf_token %}
@@ -28,7 +35,7 @@
 			<div class="fieldWrapper">
 	        	{{ form.startdate.errors }}
 	        	<label for="startdate" class="required">*Start Date:</label>
-	        	<input type="text" id="startdate" name="startdate" value="{{startdate}}" />
+	        	<input type="text" id="startdate" name="startdate" value="{{startdate|date:'m/Y'}}" />
 	    	</div>
 	    
 	    	<br />
@@ -36,7 +43,7 @@
 	    	<div class="fieldWrapper">
 	        	{{ form.enddate.errors }}
 	        		<label for="enddate" >End Date: &nbsp;</label>
-	        		<input type="text" id="enddate" name="enddate" value="{{enddate}}" />
+	        		<input type="text" id="enddate" name="enddate" value="{{enddate|date:'m/Y'}}" />
 	        		<br />
 	        		
 	        		

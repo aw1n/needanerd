@@ -154,8 +154,8 @@ def employerForm(request):
                 message = "The following user has requested an account: "+username+"\
                 \n\nTo activate your account, click this link within 48 \
                 hours:\n\n"
-                message.append(settings.HOST)
-                message.append("/accounts/confirm/%s" % (username, activation_key))                                                                                                             
+                message += settings.HOST
+                message += "/accounts/confirm/%s" % (activation_key)                                                                                                             
                 mail_admins(subject, message)
                 logger.debug('Mail send to all admins, ok')
                 return HttpResponseRedirect('/accounts/activate/?oncampus=False') # Redirect after POST

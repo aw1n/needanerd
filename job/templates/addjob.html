@@ -21,6 +21,13 @@
         {% endfor %}
     {% endfor %}
 	{% endif %}
+	{% if form.date_errors %}
+	<br/>
+    <div class="alert alert-danger">
+                <strong>{{form.date_errors}}</strong>
+                </div>
+    {% endif %}
+	
 		<div id="newjob">
 		
 			{% csrf_token %}

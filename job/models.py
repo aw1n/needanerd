@@ -31,8 +31,10 @@ class Job(models.Model):
     name=models.CharField(max_length=32)
     description=models.CharField(max_length=3200)
     skills=models.CharField(max_length=1000)
-    startdate = models.CharField(max_length=16)
-    enddate = models.CharField(max_length=16)
+    #startdate = models.CharField(max_length=16)
+    #enddate = models.CharField(max_length=16)
+    startdate = models.DateField()
+    enddate = models.DateField()
     salary=models.CharField(max_length=16)
     released = models.BooleanField(null=False, blank=False, default=True)
     #Used on first create
@@ -68,7 +70,12 @@ class JobForm(forms.ModelForm):
         job.description=self.cleaned_data['description']
         job.skills=self.cleaned_data['skills']
         
-        job.startdate=self.data['startdate']
+        startdatestr=self.data['startdate']
+        startdatearr = startdatestr.split('/')
+        startmonth = startdatearr[0]
+        startyear = startdatearr[1]
+        job.startdate = startyear + "-" + startmonth + "-01"
+        
         logger.debug('job.startdate='+job.startdate)
         
         try:
@@ -78,6 +85,13 @@ class JobForm(forms.ModelForm):
         except MultiValueDictKeyError:
             job.enddate=self.data['enddate']
             logger.debug('job.enddate='+job.enddate)
+        
+        
+        enddatestr=self.data['enddate']
+        enddatearr = enddatestr.split('/')
+        endmonth = enddatearr[0]
+        endyear = enddatearr[1]
+        job.enddate = endyear + "-" + endmonth + "-01"
                 
         job.salary=self.cleaned_data['salary']
         job.released=self.cleaned_data['released']

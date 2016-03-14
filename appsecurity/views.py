@@ -148,6 +148,7 @@ def reactivate(request, user_id):
 def confirm(request, key):
     logger.debug('Confirming account with activation key='+key)
     if request.user.is_authenticated():
+        logger.debug('This user already has an account')
         return render_to_response('confirm.html', {'has_account': True}, context_instance=RequestContext(request))
     
     user_profile = get_object_or_404(UserProfile, activation_key=key)

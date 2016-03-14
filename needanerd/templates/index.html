@@ -137,20 +137,22 @@
 
 
         </div>
-{% endif %}
-
-{% if jobs %}
-	<div class="row">
-    {% for j in jobs %}
-		<div class="col-lg-4">
-          <h2>{{j.name}}</h2>
-          <p class="frontpagejobdesc">{{j.description}}</p>
-          <p><a class="btn btn-primary" href="/jobs/{{j.pk}}" role="button">View details &raquo;</a></p>
-        </div>
-     {% endfor %}
-    </div>
 {% else %}
-	<!--Need a Nerd does not have any jobs in its database-->
+
+	{% if jobs %}
+		<div class="row">
+	    {% for j in jobs %}
+			<div class="col-lg-4">
+	          <h3>{{j.name}}</h3>
+	          <p class="frontpagejobdesc">{{j.description}}</p>
+	          <p><a class="btn btn-primary" href="/jobs/{{j.pk}}" role="button">View details &raquo;</a></p>
+	        </div>
+	     {% endfor %}
+	    </div>
+	{% else %}
+		<!--Need a Nerd does not have any jobs in its database-->
+	{% endif %}
+
 {% endif %}
 
 {% endblock %}

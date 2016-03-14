@@ -25,14 +25,14 @@
     </tr>
     <tr width="100%">
     	<td>Start Date:</td>
-    	<td>{{job.startdate}}</td>
+    	<td>{{job.startdate|date:'F, Y'}}</td>
     </tr>
     <tr width="100%">
     	<td>End Date:</td>
     	{% if job.enddate %}
-    		<td>{{job.enddate}}</td>
+    		<td>{{job.enddate|date:'F, Y'}}</td>
     	{% else %}
-    		<td>N/A</td>
+    		<td>This is a permenant position</td>
     	{% endif %}
     </tr>
     <tr width="100%">

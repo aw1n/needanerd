@@ -176,7 +176,7 @@ def checkdates(form):
         startdate=form.data['startdate']
         if not startdate:
             logger.debug('Startdate not provided')
-            form._errors[NON_FIELD_ERRORS] = form.error_class(['Start date not provided'])
+            form.date_errors = 'Start date not provided'
             return False
         try:
             enddate=form.data['enddate']
@@ -200,24 +200,32 @@ def checkdates(form):
                 logger.debug('permenant position')
                 return True
             except:
-                raise MultiValueDictKeyError
-           
+                form.date_errors = 'End date not provided'
+                return False
         
         logger.debug('startdate='+startdate)
         logger.debug('enddate='+enddate)
         
-        start = datetime.strptime(startdate, '%m/%d/%Y')
-        end = datetime.strptime(enddate, '%m/%d/%Y')
-        if start < datetime.now():
-            form.date_errors="ERROR: The start date cannot be before the current date"
-            return False
-            #raise forms.ValidationError("You cannot enter a start date in the past")                
-        elif end < datetime.now():
+        startdatearr = startdate.split('/')
+        startmonth = startdatearr[0]
+        startyear = startdatearr[1]
+        startdatenew = startmonth + "/01/" + startyear
+        
+        enddatearr = enddate.split('/')
+        endmonth = enddatearr[0]
+        endyear = enddatearr[1]
+        enddatenew = endmonth + "/01/" + endyear
+        
+        start = datetime.strptime(startdatenew, '%m/%d/%Y')
+        end = datetime.strptime(enddatenew, '%m/%d/%Y')
+        if end < datetime.now():
             form.date_errors="ERROR: The end date cannot be before the current date"
+            logger.debug(form.date_errors)
             return False
             #raise forms.ValidationError("You cannot enter an end date in the past") 
         elif end < start:
             form.date_errors="ERROR: The start date cannot be after the end date"
+            logger.debug(form.date_errors)
             return False
             #raise forms.ValidationError("End date cannot be before start date")
         else:
@@ -229,7 +237,9 @@ def jobForm(request):
     if request.method == 'POST': # If the form has been submitted...
         logger.debug('request.method == POST')
         form = JobForm(request.POST) # A form bound to the POST data
-        if form.is_valid() and checkdates(form): # All validation rules pass
+        checkdatesbool = checkdates(form)
+        logger.debug('Checkdates() returned ' + str(checkdatesbool))
+        if form.is_valid() and checkdatesbool: # All validation rules pass
             job = form.save(request.user.pk)
             t = Thread(target=notifyStudentsNewJob, args=(job,))
             t.start()
@@ -238,6 +248,7 @@ def jobForm(request):
             logger.debug('Posted form is not valid')
             logger.debug('form.errors='+str(form.errors))
             logger.debug('form.non_field_errors='+str(form.non_field_errors))
+            logger.debug('form.date_errors='+str(form.date_errors))
             
     else:
         logger.debug('form is not valid')
@@ -265,6 +276,7 @@ def editJobForm(request, job_id):
                 logger.debug('Posted form is not valid')
                 logger.debug('form.errors='+str(form.errors))
                 logger.debug('form.non_field_errors='+str(form.non_field_errors))
+                logger.debug('form.date_errors='+str(form.date_errors))
         else:
             form = JobForm(instance=j) # An unbound form    
         return render_to_response('editjob.html', {'form': form, 'jobid': job_id, 'startdate': j.startdate, 'enddate': j.enddate}, context_instance=RequestContext(request))

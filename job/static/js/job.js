@@ -1,11 +1,13 @@
 $(document).ready(function() {
 	
-	var searchMinDate = "-50y";
+	var searchMinDate = "+1d";
 	var searchMaxDate = "+10y";
 	
 	$("#startdate").datepicker({
-	    showOn: 'both', 
+		
+		showOn: 'both', 
     	buttonImage: '/static/images/calendar.gif',
+    	dateFormat: "mm/yy",
     	changeMonth: true,
 	    changeYear: true,
 	    showButtonPanel: true,
@@ -13,6 +15,7 @@ $(document).ready(function() {
 	    minDate: searchMinDate,
 	    maxDate: searchMaxDate,
 	    showButtonPanel: true,
+	    
 	    beforeShow: function (input, inst) {
 	    	
 	    	//Weird Datepicker Quirk. You have to use a timeout before setting the focus or you get a recursion error. You also can't use this because
@@ -45,6 +48,7 @@ $(document).ready(function() {
     	buttonImage: '/static/images/calendar.gif',
     	changeMonth: true,
 	    changeYear: true,
+	    dateFormat: "mm/yy",
 	    showButtonPanel: true,
 	    showAnim: "",
 	    minDate: searchMinDate,

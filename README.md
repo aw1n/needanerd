@@ -32,11 +32,13 @@ export PGPASSWORD='AuburnUniversity2016!'; psql -h localhost -p 5432 -U nerd -w 
 
 To setup with OpenShift
 1. Install the database:
-oc new-app --docker-image=centos/postgresql-94-centos7 -e POSTGRESQL_USER=nerd -e POSTGRESQL_PASSWORD=AuburnUniversity2016! -e POSTGRESQL_DATABASE=nan_db
+oc new-app --docker-image=centos/postgresql-94-centos7 -e POSTGRESQL_USER=nerd -e POSTGRESQL_PASSWORD=AuburnUniversity2016! -e POSTGRESQL_DATABASE=nan_db --labels='name=nandb'
 
 2. Install Need A Nerd
-Run the following command from the same directory as the Dockerfile
-oc new-app --strategy=docker .
+oc new-app johnfosborneiii/needanerd -e ON_OPENSHIFT=TRUE --labels='name=needanerd'
+
+3. From the terminal of the need a nerd container go to the /needanerd/ directory and run
+python manage.py migrate
 
 Beware of pushing to docker hub, you may need to change the ~/.docker/config.json file:
 https://forums.docker.com/t/docker-push-not-working-in-1-8-1-not-logged-in/2894/19

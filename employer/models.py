@@ -69,17 +69,17 @@ class EmployerUserCreationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("first_name", "last_name", "company_name", "email", "password1","password2", "phone", "website","description","oncampus","address1","address2","city","state","zipcode",)
-    '''
+    
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
-        username = self.cleaned_data["username"]
+        username = self.cleaned_data["email"]
         try:
             User.objects.get(username=username)
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(self.error_messages['duplicate_username'])
-    '''
+    
     def clean_email(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.

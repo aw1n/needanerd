@@ -30,9 +30,9 @@
 		
 			<tr id=row_{{j.pk}}>
 	        	<td><a href='/jobs/{{j.pk}}/'>{{j.name}}</a></td>
-	        	<td>{{j.startdate}}</td>
+	        	<td>{{j.startdate|date:'F, Y'}}</td>
 	        	{% if j.enddate %}
-	        		<td>{{j.enddate}}</td>
+	        		<td>{{j.enddate|date:'F, Y'}}</td>
 	        	{% else %}
 	        		<td>N/A</td>
 	        	{% endif %}
