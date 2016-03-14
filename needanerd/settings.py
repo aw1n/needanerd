@@ -33,8 +33,8 @@ RAISE_EXCEPTIONS = True
 SESSION_COOKIE_AGE=3600
 
 APPEND_SLASH = True
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-#EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.office365.com'
@@ -205,6 +205,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrap3',
     'social.apps.django_app.default',
+    'django_smtp_ssl',
     'appsecurity',
     'student',
     'employer',
