@@ -34,15 +34,16 @@ SESSION_COOKIE_AGE=3600
 
 APPEND_SLASH = True
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.office365.com'
 EMAIL_HOST_USER = 'JFO0002@tigermail.auburn.edu'
-EMAIL_HOST_PASSWORD = 'hqzwpbbffzyphals' #Gmail App Password, cannot sign into Gmail with this password but can use SMTP
+#EMAIL_HOST_PASSWORD = 'hqzwpbbffzyphals' #Gmail App Password, cannot sign into Gmail with this password but can use SMTP
+EMAIL_HOST_PASSWORD='needanerd1!'
 EMAIL_USE_TLS = True
 #EMAIL_USE_SSL = False
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = 'Need A Nerd Admin <JFO0002@tigermail.auburn.edu>'
 
 EMAIL_SUBJECT_PREFIX="NeedaNerd"
 ADMINS = (
@@ -205,7 +206,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrap3',
     'social.apps.django_app.default',
-    'django_smtp_ssl',
     'appsecurity',
     'student',
     'employer',
