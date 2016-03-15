@@ -34,7 +34,7 @@ class Job(models.Model):
     #startdate = models.CharField(max_length=16)
     #enddate = models.CharField(max_length=16)
     startdate = models.DateField()
-    enddate = models.DateField()
+    enddate = models.DateField(null=True, blank=True)
     salary=models.CharField(max_length=16)
     released = models.BooleanField(null=False, blank=False, default=True)
     #Used on first create
@@ -80,18 +80,20 @@ class JobForm(forms.ModelForm):
         
         try:
             permposition=self.data['permposition']
-            job.enddate=""
-            logger.debug('Permenant position job.enddate='+job.enddate)
+            #job.enddate=''
+            logger.debug('Permenant position job.enddate='+str(job.enddate))
         except MultiValueDictKeyError:
             job.enddate=self.data['enddate']
             logger.debug('job.enddate='+job.enddate)
         
-        
-        enddatestr=self.data['enddate']
-        enddatearr = enddatestr.split('/')
-        endmonth = enddatearr[0]
-        endyear = enddatearr[1]
-        job.enddate = endyear + "-" + endmonth + "-01"
+        try:
+            enddatestr=self.data['enddate']
+            enddatearr = enddatestr.split('/')
+            endmonth = enddatearr[0]
+            endyear = enddatearr[1]
+            job.enddate = endyear + "-" + endmonth + "-01"
+        except MultiValueDictKeyError:
+            job.enddate = None
                 
         job.salary=self.cleaned_data['salary']
         job.released=self.cleaned_data['released']

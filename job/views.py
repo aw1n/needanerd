@@ -178,32 +178,14 @@ def checkdates(form):
             logger.debug('Startdate not provided')
             form.date_errors = 'Start date not provided'
             return False
-        try:
-            enddate=form.data['enddate']
-            if not enddate:
-                logger.debug('enddate not found')
-                try:
-                    permposition=form.data['permposition']
-                    permposition=""
-                    enddate=permposition
-                    logger.debug('permenant position')
-                    return True
-                except:
-                    raise MultiValueDictKeyError
-           
-        except MultiValueDictKeyError:
-            logger.debug('enddate not found')
-            try:
-                permposition=form.data['permposition']
-                permposition=""
-                enddate=permposition
-                logger.debug('permenant position')
-                return True
-            except:
-                form.date_errors = 'End date not provided'
-                return False
         
-        logger.debug('startdate='+startdate)
+        permposition=form.data['permposition']
+        if permposition:
+            logger.debug('This is a permenant position')
+            return True
+        
+        enddate=form.data['enddate']
+        logger.debug('startdate='+str(startdate))
         logger.debug('enddate='+enddate)
         
         startdatearr = startdate.split('/')
@@ -248,7 +230,6 @@ def jobForm(request):
             logger.debug('Posted form is not valid')
             logger.debug('form.errors='+str(form.errors))
             logger.debug('form.non_field_errors='+str(form.non_field_errors))
-            logger.debug('form.date_errors='+str(form.date_errors))
             
     else:
         logger.debug('form is not valid')
