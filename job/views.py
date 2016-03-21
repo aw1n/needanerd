@@ -100,9 +100,17 @@ def applyJob(request):
     return render_to_response('applyjobs.html', {'student': s, 'jobs': j, 'employers': e}, context_instance=RequestContext(request))
 
 @login_required
-def jobList(request):
+def jobList(request, student_id):
     
-    joblist = Job.objects.filter(released=True).order_by('-updated_at')
+    u = get_object_or_404(User, pk=student_id)
+    
+    if isStudent(u):
+        logger.debug('Found student with user id=%d',u.id)
+        joblist = u.userprofile.student.job_set.all()
+        msg = 'You have applied to the following positions'
+    else:
+        joblist = Job.objects.filter(released=True).order_by('-updated_at')
+    
     paginator = Paginator(joblist, 5) # Show 25 contacts per page
 
     page = request.GET.get('page')
@@ -115,7 +123,7 @@ def jobList(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         j = paginator.page(paginator.num_pages)
 
-    return render_to_response('listjobs.html', {'jobs': j}, context_instance=RequestContext(request))
+    return render_to_response('listjobs.html', {'msg': msg, 'student': u, 'jobs': j}, context_instance=RequestContext(request))
 
 @login_required
 def job_detail(request, job_id):
@@ -179,7 +187,7 @@ def checkdates(form):
             form.date_errors = 'Start date not provided'
             return False
         
-        permposition=form.data['permposition']
+        permposition=form.data.get('permposition', False)
         if permposition:
             logger.debug('This is a permenant position')
             return True

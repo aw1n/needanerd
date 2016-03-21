@@ -17,38 +17,9 @@
 
 {% if not user.is_authenticated %}
 
-	<!-- Jumbotron 
-      <div class="jumbotron">
-        <h1>Nerdsville!</h1>
-        <p class="lead">Need a Nerd is Auburn's best spot for nerds to find cuttng edge jobs, and employers to find grade A talent.</p>
-        <p>
-        <a class="btn btn-lg btn-success" href="#" role="button"></a>
-		    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-		        Register and Get Started
-	        </button>
-	      
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-footer">
-			      	<center>
-				      	Register me as an: <br/>
-				        <button type="button" id='nerdregbutton' class="btn btn-primary">Official Nerd</button>
-				        <button type="button" id='employerregbutton' class="btn btn-primary">Employer of Nerds</button>
-			        </center>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-        </p>
-      </div>-->
       <div class="container">
-    <div class="alert alert-success" style="text-align:center">
-    		<strong>Employers must go through the registration process to post jobs</strong>
-		</div>
-    
-
-    <div class="omb_login">
+   
+       <div class="omb_login">
     			<div class="row omb_row-sm-offset-3 omb_socialButtons">
     	    <div class="col-xs-4 col-sm-2">
 		        <a href="{% url 'social:begin' backend='facebook' %}" class="btn btn-lg btn-block btn-social btn-facebook">
@@ -91,7 +62,7 @@
 			      <div class="modal-footer">
 			      	<center>
 				      	Register me as an: <br/>
-				        <button type="button" id='nerdregbutton' class="btn btn-primary">Offcial Nerd</button>
+				        <button type="button" id='nerdregbutton' class="btn btn-primary">Official Nerd</button>
 				        <button type="button" id='employerregbutton' class="btn btn-primary">Employer of Nerds</button>
 			        </center>
 			      </div>
@@ -102,34 +73,7 @@
 		<a href="{{BASE_URL}}/accounts/password/reset/">Forget your password?</a>
 		<br/>		
       </form>
-      <!-- 
-
-		<div class="row omb_row-sm-offset-3 omb_loginOr">
-			<div class="col-xs-12 col-sm-6">
-				<hr class="omb_hrOr">
-				<span class="omb_spanOr">or</span>
-			</div>
-		</div>
-
-		<div class="row omb_row-sm-offset-3">
-			<div class="col-xs-12 col-sm-6">	
-			    <form class="omb_loginForm" action="" autocomplete="off" method="POST">
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<input type="text" class="form-control" name="username" placeholder="email address">
-					</div>
-					<span class="help-block"></span>
-										
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-						<input  type="password" class="form-control" name="password" placeholder="Password">
-					</div>
-                    <br/>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-				</form>
-			</div>
-    	</div>
-    	 -->
+      
 		<br/>
 				
 	</div>

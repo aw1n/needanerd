@@ -48,6 +48,8 @@ def home(request):
         del request.session['msg']
     else:
         logger.debug('No message')
+        if not request.user.is_authenticated():
+            msg = 'Employers must register through email'
         
     #Show the 5 latest job postings if they are available
     if Job.objects.count() > 6:

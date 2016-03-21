@@ -61,7 +61,7 @@
 	{% if hasCRUDPrivs %}
     		Jobs:
     		{% if jobs %}
-	        	<a href='/jobs?student={{student.id}}' >Show Job Applications</a>
+	        	<a href='/jobs/list/{{student.id}}' >Show Job Applications</a>
 	    	{% else %}
 	    	  	No Outstanding Job Applications at this time
 	    	{% endif %}
@@ -224,7 +224,7 @@
     <div style='font-style:italic;'>
 		<p>Reviews about this Student:</p>
 	</div>
-    <table class="profile">
+    <table class="profile table table-striped table-hover table-responsive">
 	    <tr width="100%">
 	    	<th>Star Rating</th>
 	    	<th>Date</th>

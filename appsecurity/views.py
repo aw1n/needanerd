@@ -74,9 +74,9 @@ def login_user(request):
         if 'next' in request.GET:
             nexturl = request.GET['next']
             logger.debug('Next %s',nexturl)
-            return render_to_response('registration/login.html', {'nexturl':nexturl},context_instance=RequestContext(request))
+            return render_to_response('registration/login.html', {'msg': 'Employers must register through email','nexturl':nexturl},context_instance=RequestContext(request))
         else:
-            return render_to_response('registration/login.html', context_instance=RequestContext(request))
+            return render_to_response('registration/login.html', {'msg': 'Employers must register through email'}, context_instance=RequestContext(request))
         
 @login_required
 def social_login_post_processing(request):
@@ -149,18 +149,19 @@ def confirm(request, key):
     logger.debug('Confirming account with activation key='+key)
     if request.user.is_authenticated():
         logger.debug('This user already has an account')
-        return render_to_response('confirm.html', {'has_account': True}, context_instance=RequestContext(request))
+        return render_to_response('index.html', {'errmsg': 'You already have an account. Make sure you are not logged in as someone else if you are trying to activate a new account'}, context_instance=RequestContext(request))
     
     user_profile = get_object_or_404(UserProfile, activation_key=key)
     #now = datetime.datetime.utcnow()
     #now = now.replace(tzinfo=timezone.utc)
     now = timezone.now() 
     if user_profile.key_expires < now:
-        return render_to_response('confirm.html', {'expired': True}, context_instance=RequestContext(request))
+        return render_to_response('index.html', {'errmsg': 'This link has expired, you must re-register'}, context_instance=RequestContext(request))
     user_account = user_profile.user
     user_account.is_active = True
     user_account.save()
-    return render_to_response('confirm.html', {'success': True}, context_instance=RequestContext(request))
+    #return render_to_response('confirm.html', {'success': True}, context_instance=RequestContext(request))
+    return render_to_response('index.html', {'msg': 'Congratulations, your account is actived', 'success': True}, context_instance=RequestContext(request))
 
 
 def user_delete(request, user_id):

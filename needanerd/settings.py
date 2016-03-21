@@ -33,9 +33,7 @@ RAISE_EXCEPTIONS = True
 SESSION_COOKIE_AGE=3600
 
 APPEND_SLASH = True
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.office365.com'
 EMAIL_HOST_USER = 'JFO0002@tigermail.auburn.edu'
@@ -54,6 +52,7 @@ MANAGERS = ADMINS
 
 if ON_OPENSHIFT:
     
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     'Note an even better practice is to use DNS: https://docs.openshift.com/enterprise/latest/architecture/additional_concepts/networking.html#openshift-dns'
     DATABASES = {
         'default': {
@@ -68,6 +67,7 @@ if ON_OPENSHIFT:
     
 elif IS_IN_DOCKER_CONTAINER:
     
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -81,6 +81,7 @@ elif IS_IN_DOCKER_CONTAINER:
     
 else:
     
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

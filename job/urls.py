@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^edit/(?P<job_id>\d+)/$', job.views.editJobForm),
     url(r'^apply/$', job.views.applyJob),
     url(r'^search/$', job.views.jobsearch),
-    url(r'^list/$', job.views.jobList),
+    url(r'^list/(?P<student_id>\d+)/$', job.views.jobList),
     url(r'^delete/(?P<job_id>\d+)/$', job.views.deleteJob),
        
 ]
