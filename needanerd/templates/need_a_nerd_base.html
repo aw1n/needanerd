@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/static/img/auburn_logo.jpg">
 
     <title>{% block header %}Need a Nerd{% endblock %}</title>
@@ -119,8 +119,7 @@
     	</div>
     	
 	  {% endif %}
-	  
-	  <h1 id="nerdheader1" >Need <img id="logo" src="/static/img/auburn_logo.jpg" alt="Auburn University" class="img-rounded" /> Nerd</h1>
+	  <h1 class="text-center">Need <img id="logo" src="/static/img/auburn_logo.jpg" alt="Auburn University" class="img-rounded" /> Nerd</h1>
 	  <br/>
 	  {% if msg %}
 		<br/>
@@ -152,8 +151,7 @@
 				{% elif user.userprofile.employer %}
 					<li id="liprofile" ><a href="/profile/" data-toggle="tab">Profile</a></li>
 					<li id="limyjobs" ><a href="/employers/myjobs/">My Jobs</a></li>
-					<li id="listudents" ><a href="/students/">Find Students</a></li>
-					<li id="idjoblist" ><a href="/jobs/list/">Find Jobs</a></li>
+					<li id="listudents" ><a href="/students/">Students</a></li>
 				{% elif user.is_superuser %}
 					<li><a href="/accounts/admin/">Admin</a></li>
 					<li><a href="/students/">Find Students</a></li>

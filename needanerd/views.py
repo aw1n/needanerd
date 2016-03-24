@@ -147,8 +147,8 @@ def contact(request):
 def contactUserForm(request, user_id):
     
     logger.debug('contactUserForm called')
-    
-    user=get_object_or_404(User, pk=user_id)
+    receiver=get_object_or_404(User, pk=user_id)
+    user=get_object_or_404(User, pk=request.user.pk)
     logger.debug('request.user.username ' + request.user.email)
     
     if request.method == 'POST': # If the form has been submitted...
@@ -161,24 +161,26 @@ def contactUserForm(request, user_id):
             subject += request.user.username
             message = form.cleaned_data['message']
             'For whatever reason I could not obtain the values from the form so well just reinsert them here'
-            recipients = [user.email]
+            recipients = [receiver.email]
             cc_myself = form.cleaned_data['cc_myself']
             
             if cc_myself:
-                recipients.append(settings.DEFAULT_FROM_EMAIL)
+                recipients.append(user.email)
                 
             from django.core.mail import send_mail
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipients)
             
             request.session['msg'] = 'Email sent successfully!'
             return HttpResponseRedirect(reverse_lazy('profile')) # Redirect after POST
-        
+    '''
     else:
         if request.user.is_authenticated():
             form = ContactUserForm() # An unbound form
-
     return render_to_response('contactuser.html', {
         'form': form, 'user':user},
         context_instance=RequestContext(request))
-
+    '''
+    return render_to_response('contactuser.html', {
+        'receiver': receiver, 'user':user},
+        context_instance=RequestContext(request))
     

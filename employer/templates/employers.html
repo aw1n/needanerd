@@ -30,7 +30,7 @@
         	{% endif %}
         	</td>
         	<td>{{employer.userprofile.employer.description|slice:":512"}}</td>
-        	<td><button class="btn btn-primary" onclick="window.location='/contact/{{employer.pk}}/'" >Contact</button></td>
+        	<td><a class="btn btn-primary" href="/contact/{{employer.pk}}/">Contact</a></td>
         	
     	</tr>
 	{% endfor %}

@@ -23,28 +23,31 @@
 		<br />
 	</form>
 	<br />
+	
 	<div class="table-responsive">
 	<table id='applyjobstable' class="table table-striped table-hover table-responsive">
 	<tr>
-    	<th>Details</th>
+		<th>Details</th>
     	<th>Name</th>
         <th>Employer</th>
-        <th>Salary</th>
-        <th>Apply</th>
-        <th>Posting Date</th>   
+           	<th class="visible-md visible-lg">Salary</th>
+        	<th class="visible-sm visible-md visible-lg">Apply</th>
+        	<th class="visible-md visible-lg">Posting Date</th>
+        </span>
 	</tr>
 	{% for j in jobs %}
     	<tr width="100%" onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-        	<td><button class="btn btn-primary" onclick="window.open('/jobs/{{j.pk}}/')">Show Details</button></td>
+        	<td class="visible-sm visible-md visible-lg"><button class="btn btn-primary" onclick="window.open('/jobs/{{j.pk}}/')">Show Details</button>
+        	<td class="visible-xs"><button class="btn btn-primary" onclick="window.open('/jobs/{{j.pk}}/')">Details</button>
         	<td>{{j.name}}</td>
         	<td><a href='/employers/{{j.employer.userprofile_set.get.user.pk}}/'>{{j.employer.company_name}}</a></td>
-        	<td>{{j.salary}}</td>
-        	{% if student.userprofile.student in j.applicant.all %}
-        		<td><button class="btn btn-success" id=jobid_{{j.pk}} disabled=True>Applied</button></td>
-        	{% else %}
-        		<td><button class="btn btn-primary" id=jobid_{{j.pk}} onClick="applyJob(jobid={{j.pk}}, studentid={{student.pk}})">Apply</button></td>
-        	{% endif %}        	
-        	<td>{{j.updated_at|date:'b d Y '|upper}}</td>
+	        	<td class="visible-md visible-lg">{{j.salary}}</td>
+	        	{% if student.userprofile.student in j.applicant.all %}
+	        		<td class="visible-sm visible-md visible-lg"><button class="btn btn-success" id=jobid_{{j.pk}} disabled=True>Applied</button></td>
+	        	{% else %}
+	        		<td class="visible-sm visible-md visible-lg"><button class="btn btn-primary" id=jobid_{{j.pk}} onClick="applyJob(jobid={{j.pk}}, studentid={{student.pk}})">Apply</button></td>
+	        	{% endif %}        	
+	        	<td class="visible-md visible-lg">{{j.updated_at|date:'b d Y '|upper}}</td>
     	</tr>
 	{% endfor %}
 	</table>

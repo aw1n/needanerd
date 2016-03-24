@@ -22,13 +22,12 @@
 
 <br/>
 
-<div class="container" width="90%" >
-	
 	<form class="well span8" method="post" >
+		
 		{% csrf_token %}
 		
-		{% if user.first_name %}
-			<p>Contacting {{ user.first_name }} {{ user.last_name }}</p>
+		{% if receiver.first_name %}
+			<p>Contacting {{ receiver.first_name }} {{ receiver.last_name }}</p>
 		{% elif user.userprofile.employer.company_name %}
 			<p>Contacting {{user.userprofile.employer.company_name}}</p>
 		{% endif %}
@@ -50,6 +49,5 @@
             </div>            
         </div>
     </form>
-</div>
 
 {% endblock %}

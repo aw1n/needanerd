@@ -14,15 +14,15 @@
 	<table class="table table-striped table-hover table-responsive">
 	<tr width="100%">
     	<th>Name</th>
-        <th>Start</th>
-        <th>End</th>
-        <th>Salary</th>
-	    <th>Updated</th>
+        <th class="visible-md visible-lg">Start</th>
+        <th class="visible-md visible-lg">End</th>
+        <th class="visible-md visible-lg">Salary</th>
+	    <th class="visible-md visible-lg">Updated</th>
 	    {% ifequal user.userprofile.employer.pk employer.userprofile.employer.pk %}
 	    	<th>Applicants</th>
-	    	<th>Released?</th>
+	    	<th class="visible-md visible-lg">Released?</th>
 	    	<th>Edit</th>
-	    	<th>Remove</th>
+	    	<th class="hidden-xs">Remove</th>
 	    {% endifequal %}
 	    
 	</tr>
@@ -30,26 +30,27 @@
 		
 			<tr id=row_{{j.pk}}>
 	        	<td><a href='/jobs/{{j.pk}}/'>{{j.name}}</a></td>
-	        	<td>{{j.startdate|date:'F, Y'}}</td>
+	        	<td class="visible-md visible-lg">{{j.startdate|date:'F, Y'}}</td>
 	        	{% if j.enddate %}
-	        		<td>{{j.enddate|date:'F, Y'}}</td>
+	        		<td class="visible-md visible-lg">{{j.enddate|date:'F, Y'}}</td>
 	        	{% else %}
-	        		<td>N/A</td>
+	        		<td class="visible-md visible-lg">N/A</td>
 	        	{% endif %}
 	        	{% if j.salary %}
-	        	<td>{{j.salary}}</td>
+	        	<td class="visible-md visible-lg">{{j.salary}}</td>
 	        	{% else %}
-	        	<td>N/A</td>
+	        	<td class="visible-md visible-lg">N/A</td>
 	        	{% endif %}
-	        	<td>{{j.updated_at|date:'b d Y'|upper}}</td>
+	        	<td class="visible-md visible-lg">{{j.updated_at|date:'b d Y'|upper}}</td>
 	        	{% ifequal user.userprofile.employer.pk employer.userprofile.employer.pk %}
-	        		<td><a href='/jobs/{{j.pk}}/applicants/'>Show Applicants</a></td>
+	        		<td class="visible-xs visible-sm"><a href='/jobs/{{j.pk}}/applicants/'>Applicants</a></td>
+	        		<td class="visible-md visible-lg"><a href='/jobs/{{j.pk}}/applicants/'>Show Applicants</a></td>
 	        		{% if j.released %}
-       					<td>Yes</td>
+       					<td class="visible-md visible-lg">Yes</td>
      					{% else %}
-       					<td>No</td>
+       					<td class="visible-md visible-lg">No</td>
    					{% endif %}
-	        		<td><button class="btn btn-primary" type=submit onclick="window.location='/jobs/edit/{{j.pk}}/'" >Edit</button></td>
+	        		<td class="hidden-xs"><a class="btn btn-primary" type=submit href='/jobs/edit/{{j.pk}}/' >Edit</a></td>
 	        		<td><button class="btn btn-danger" type=submit onclick="deleteJob( {{j.pk}} )" >Delete</button></td>
 	        	{% endifequal %}		        			        	
 	    	</tr>

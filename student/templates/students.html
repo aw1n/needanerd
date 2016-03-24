@@ -37,7 +37,7 @@
         	<td><a href='/students/{{user.pk}}/'>{{user.first_name}} {{user.last_name}}</a></td>
         	<td>{{user.userprofile.student.currentmajor}}</td>
         	<td>{%with user.userprofile.student.resume_set.all|first as resume%}{{resume.objective|slice:":512"}}{%endwith%}</td>
-        	<td><button class="btn btn-primary" onclick="window.location='/contact/{{user.pk}}/'" >Contact</button></td>
+        	<td><a class="btn btn-primary" href="/contact/{{user.pk}}/">Contact</a></td>
     	</tr>
 	{% endfor %}
 	</table>

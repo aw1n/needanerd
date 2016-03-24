@@ -43,3 +43,8 @@ python manage.py migrate
 Beware of pushing to docker hub, you may need to change the ~/.docker/config.json file:
 https://forums.docker.com/t/docker-push-not-working-in-1-8-1-not-logged-in/2894/19
 
+Build and run from the Dockerfile:
+docker build -t johnfosborneiii/needanerd --no-cache .
+docker push johnfosborneiii/needanerd
+
+
