@@ -436,7 +436,7 @@ def studentApplication(request, student_id, job_id):
     s = u.userprofile.student
     j.applicant.add(s)
     subject = 'Need a Nerd Notificaiton: New Applicant For Your Job Posting'
-    message = 'Employer of Nerds, A nerd has applied for your latest job position of '+str(j.name)+' Login to need a nerd for details'
+    message = 'Employer of Nerds, A nerd has applied for your latest job position of '+str(j.name)+'. Login to needanerd for details'
     'There is a probably a better way to do this but I am getting tired'
     user=User.objects.select_related().filter(userprofile__employer__job__pk=j.pk).get()
     recipient=user.email

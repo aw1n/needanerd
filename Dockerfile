@@ -28,12 +28,23 @@ RUN pip install python-social-auth==0.2.14
 RUN pip install django-bootstrap3
 
 #This cache bust makes sure the docker build gets the latest code from github
-ARG CACHEBUST=1
-RUN git clone https://github.com/johnfosborneiii/needanerd 
+ARG CACHEBUST=3
+#RUN git clone https://github.com/johnfosborneiii/needanerd 
+
+RUN mkdir /code/
+COPY appsecurity /code/appsecurity
+COPY employer /code/employer
+COPY job /code/job
+COPY manage.py /code/manage.py
+COPY msgcenter /code/msgcenter
+COPY needanerd /code/needanerd
+COPY resume /code/resume
+COPY student /code/student
 
 # Port to expose
 EXPOSE 8888
 
-RUN chmod -R 777 /needanerd*
-CMD python2.7 needanerd/manage.py runserver 0.0.0.0:8888
-
+CMD python2.7 /code/manage.py makemigrations
+CMD python2.7 /code/manage.py migrate
+CMD echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'johnfosborneiii@gmail.com', 'AuburnUniversity2016')" | python2.7 /code/manage.py shell
+CMD python2.7 /code/manage.py runserver 0.0.0.0:8888

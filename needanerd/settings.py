@@ -74,8 +74,8 @@ elif IS_IN_DOCKER_CONTAINER:
             'NAME': 'nan_db',
             'USER': 'nerd',
             'PASSWORD': 'AuburnUniversity2016!',
-            'HOST': '$DB_PORT_5432_TCP_ADDR',                      
-            'PORT': '$DB_PORT_5432_TCP_PORT',
+            'HOST': 'needanerd-db', #$NEEDANERD_DB_PORT_5432_TCP_ADDR                     
+            'PORT': '5432', #$NEEDANERD_DB_PORT_5432_TCP_PORT
         }
     }
     

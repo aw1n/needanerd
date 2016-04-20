@@ -131,10 +131,15 @@ function changebtn(){
 	}			
 }
 
-function applyJob(jobid, studentid){
+function applyJob(objective, jobid, studentid){
 	
 	try{
 	
+		if(objective == ""){
+			bootbox.alert("You cannot apply to a job until you have addded an objective to your profile");
+			return;
+		}
+		
 		appbtn = $("#jobid_"+jobid+"");
 		appbtn.html("Applied");
 		appbtn.switchClass("btn-primary", "btn-success");

@@ -7,6 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 from django.contrib.auth.decorators import user_passes_test, login_required
 from job.models import Job, JobForm, JobSearch#, JobEditForm
+from resume.models import Resume
 from needanerd.views import isStudent, isEmployer
 from needanerd import studentgroupname, employergroupname
 from needanerd.urls import permission_denied_url
@@ -80,8 +81,15 @@ def jobsearch(request):
 @login_required
 @user_passes_test(isStudent, login_url=permission_denied_url)
 def applyJob(request):
-    s = request.user
+    u = request.user
     e = User.objects.filter(groups__name=employergroupname)
+    
+    resumes=Resume.objects.filter(student=u.userprofile.student)[:1]
+    if resumes:
+        resume=resumes[0]
+    else:
+        resume=None
+    
     
     joblist = Job.objects.filter(released=True).order_by('-updated_at')
     paginator = Paginator(joblist, 5) # Show 25 contacts per page
@@ -97,7 +105,7 @@ def applyJob(request):
         j = paginator.page(paginator.num_pages)
     
      
-    return render_to_response('applyjobs.html', {'student': s, 'jobs': j, 'employers': e}, context_instance=RequestContext(request))
+    return render_to_response('applyjobs.html', {'student': u, 'jobs': j, 'employers': e, 'resume': resume}, context_instance=RequestContext(request))
 
 @login_required
 def jobList(request, student_id):

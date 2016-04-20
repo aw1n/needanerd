@@ -8,7 +8,8 @@ Notes:
 Source code is available here: https://github.com/johnfosborneiii/needanerd
 
 To run the Docker Container
-docker run -d --name postgresql_database -e POSTGRESQL_USER=nerd -e POSTGRESQL_PASSWORD=AuburnUniversity2016! -e POSTGRESQL_DATABASE=nan_db -p 5432:5432 centos/postgresql-94-centos7
+#docker run -d --name needanerd-db -e POSTGRESQL_USER=nerd -e POSTGRESQL_PASSWORD=AuburnUniversity2016! -e POSTGRESQL_DATABASE=nan_db -p 5432:5432 centos/postgresql-94-centos7
+docker run -d --name needanerd-db -e POSTGRESQL_USER=nerd -e POSTGRESQL_PASSWORD=AuburnUniversity2016! -e POSTGRESQL_DATABASE=nan_db -p 5432:5432 johnfosborneiii/needanerd-db
 
 If you want to use persistent storage, setup a data container (best practice)
 https://docs.docker.com/v1.8/userguide/dockervolumes/
@@ -23,9 +24,9 @@ docker rm `docker ps -aq`
 
 Build and run in a docker container
 cd dockerfiles/
-docker build --tag=needanerd-web .
-docker run -it -p 8888:8888 needanerd-web
-docker run -it -d --link nan-postgres -p 8888:8888 needanerd-web
+docker build --tag=johnfosborneiii/needanerd-web .
+#docker run -it -p 8888:8888 needanerd-web
+docker run -it -d --name needanerd-web --link needanerd-db -p 8888:8888 johnfosborneiii/needanerd-web (if not using a container for storage)
 
 Verify the connection with:
 export PGPASSWORD='AuburnUniversity2016!'; psql -h localhost -p 5432 -U nerd -w nan_db
@@ -44,7 +45,7 @@ Beware of pushing to docker hub, you may need to change the ~/.docker/config.jso
 https://forums.docker.com/t/docker-push-not-working-in-1-8-1-not-logged-in/2894/19
 
 Build and run from the Dockerfile:
-docker build -t johnfosborneiii/needanerd --no-cache .
-docker push johnfosborneiii/needanerd
+docker build -t johnfosborneiii/needanerd-web --no-cache .
+docker push johnfosborneiii/needanerd-web
 
 
