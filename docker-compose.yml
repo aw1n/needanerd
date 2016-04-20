@@ -1,0 +1,10 @@
+db:
+  container_name: needanerd-db
+  image: johnfosborneiii/needanerd-db 
+web:
+  container_name: needanerd-web
+  image: johnfosborneiii/needanerd-web
+  ports:
+    - "8888:8888"
+  links:
+    - db
