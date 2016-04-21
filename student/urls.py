@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^profile/$', student.views.student_profile),
     url(r'^search/$', student.views.studentsearch),
     url(r'^edit/(?P<student_id>\d+)/$', student.views.editStudentForm),
+    url(r'^update/(?P<student_id>\d+)/$', student.views.updateStudent),
     url(r'^apply/(\d+)/(\d+)/$', student.views.studentApplication),
     url(r'^register/$', student.views.studentForm)
     #url(r'^review/(?P<user_id>\d+)/$', 'student.views.studentReviewForm'),

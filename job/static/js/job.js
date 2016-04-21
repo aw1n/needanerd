@@ -131,12 +131,12 @@ function changebtn(){
 	}			
 }
 
-function applyJob(objective, jobid, studentid){
+function applyJob(objective, email, major, jobid, studentid){
 	
 	try{
 	
-		if(objective == ""){
-			bootbox.alert("You cannot apply to a job until you have addded an objective to your profile");
+		if(objective == "" || email == "" || major == ""){
+			bootbox.alert("You cannot apply to a job until you have addded an objective, email, and major to your profile", function() {});
 			return;
 		}
 		

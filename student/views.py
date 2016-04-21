@@ -2,6 +2,7 @@ import json
 import time
 
 from lxml import etree as ElementTree
+from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from student.models import StudentUserCreationForm, StudentUserEditForm, StudentSearch
@@ -490,3 +491,80 @@ def studentForm(request):
 
         form = StudentUserCreationForm() # An unbound form
         return render_to_response('registerStudent.html', {'form': form}, context_instance=RequestContext(request))
+
+@login_required
+@require_http_methods(["POST"])
+def updateStudent(request, student_id):
+    
+    logger.debug('updateStudent called');
+    
+    u = get_object_or_404(User, pk=student_id)
+    logger.debug('Found student with user id=%d',u.id)
+    
+    if not isStudent(u) or request.user.pk != u.pk:
+        response=HttpResponse()
+        response.write("You are not authorized to make this change")
+        response.status_code=401
+        logger.debug('Returning a 401 unauthorized')
+        return response
+    
+    if 'major' in request.POST:
+        currentmajor = request.POST['major']
+        logger.debug('received new major value of: '+currentmajor)
+        if currentmajor != u.userprofile.student.currentmajor:
+            u.userprofile.student.currentmajor = currentmajor
+            u.userprofile.student.save()
+    else:
+        logger.debug('no updates to currentmajor')
+    
+    email=request.POST.get('email')
+    if 'email' in request.POST:
+        logger.debug('received new email value of: '+email)
+        from django.core.exceptions import ValidationError
+        from django.core.validators import validate_email
+        try:
+            validate_email(email)
+        except ValidationError:
+            logger.debug("This email address did not pass the validator")
+            response=HttpResponse()
+            response.write("This email address is invalid")
+            response.status_code=500
+            logger.info('Returning a 500')
+            logger.info('User: ' + str(request.user.pk) + " tried to edit the email but with an invalid value" )
+            return response
+        if email != u.email:
+            if User.objects.filter(username=email).exists(): 
+                response=HttpResponse()
+                response.write("This email address is already registered to another user")
+                response.status_code=500
+                logger.info('Returning a 500')
+                logger.info('User: ' + str(request.user.pk) + " tried to edit the email but it already exists" )
+                return response
+            
+            u.email = email
+            salt = sha.new(str(random.random())).hexdigest()[:5]
+            activation_key = sha.new(salt+email).hexdigest()
+            now = timezone.now()
+            #key_expires = datetime.datetime.utcnow() + datetime.timedelta(2)
+            key_expires = now + datetime.timedelta(2)
+            
+            u.userprofile.activation_key=activation_key
+            u.userprofile.key_expires=key_expires
+            u.userprofile.save()
+            
+            subject = 'Confirm Email Change'
+            message = "Please confirm this new email address within the next 48 hours\n\n"
+            message += settings.HOST
+            message += "/accounts/confirm/email/"
+            message += activation_key                                                                                                         
+            recipients = [email]
+            
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipients)
+            
+            u.save()
+    else:
+        logger.debug('no updates to email')
+    
+    response = serializers.serialize("json", [u])
+    
+    return HttpResponse(response, content_type="application/json")

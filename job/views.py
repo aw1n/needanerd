@@ -81,10 +81,10 @@ def jobsearch(request):
 @login_required
 @user_passes_test(isStudent, login_url=permission_denied_url)
 def applyJob(request):
-    u = request.user
+    user = request.user
     e = User.objects.filter(groups__name=employergroupname)
     
-    resumes=Resume.objects.filter(student=u.userprofile.student)[:1]
+    resumes=Resume.objects.filter(student=user.userprofile.student)[:1]
     if resumes:
         resume=resumes[0]
     else:
@@ -103,9 +103,8 @@ def applyJob(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         j = paginator.page(paginator.num_pages)
-    
      
-    return render_to_response('applyjobs.html', {'student': u, 'jobs': j, 'employers': e, 'resume': resume}, context_instance=RequestContext(request))
+    return render_to_response('applyjobs.html', {'student': user, 'jobs': j, 'employers': e, 'resume': resume}, context_instance=RequestContext(request))
 
 @login_required
 def jobList(request, student_id):

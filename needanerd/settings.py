@@ -35,13 +35,16 @@ SESSION_COOKIE_AGE=3600
 APPEND_SLASH = True
 #EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
 EMAIL_PORT = 587
-EMAIL_HOST = 'smtp.office365.com'
-EMAIL_HOST_USER = 'JFO0002@tigermail.auburn.edu'
-#EMAIL_HOST_PASSWORD = 'hqzwpbbffzyphals' #Gmail App Password, cannot sign into Gmail with this password but can use SMTP
-EMAIL_HOST_PASSWORD='needanerd1!'
+#EMAIL_HOST = 'smtp.office365.com'
+EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_HOST_USER = 'JFO0002@tigermail.auburn.edu'
+EMAIL_HOST_USER = 'johnfosborneiii@gmail.com'
+EMAIL_HOST_PASSWORD = 'hqzwpbbffzyphals' #Gmail App Password, cannot sign into Gmail with this password but can use SMTP
+#EMAIL_HOST_PASSWORD='needanerd1!'
 EMAIL_USE_TLS = True
 #EMAIL_USE_SSL = False
-DEFAULT_FROM_EMAIL = 'Need A Nerd Admin <JFO0002@tigermail.auburn.edu>'
+#DEFAULT_FROM_EMAIL = 'Need A Nerd Admin <JFO0002@tigermail.auburn.edu>'
+DEFAULT_FROM_EMAIL = 'Need A Nerd Admin <johnfosborneiii@gmail.com>'
 
 EMAIL_SUBJECT_PREFIX="NeedaNerd"
 ADMINS = (
@@ -81,7 +84,8 @@ elif IS_IN_DOCKER_CONTAINER:
     
 else:
     
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -131,7 +135,7 @@ TIME_ZONE = 'America/Chicago'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-SITE_ID = 2
+#SITE_ID = 2
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -202,7 +206,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',

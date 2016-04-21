@@ -45,7 +45,7 @@
 	        	{% if student.userprofile.student in j.applicant.all %}
 	        		<td class="visible-sm visible-md visible-lg"><button class="btn btn-success" id=jobid_{{j.pk}} disabled=True>Applied</button></td>
 	        	{% else %}
-	        		<td class="visible-sm visible-md visible-lg"><button class="btn btn-primary" id=jobid_{{j.pk}} onClick="applyJob(objective='{{resume.objective}}', jobid={{j.pk}}, studentid={{student.pk}})">Apply</button></td>
+	        		<td class="visible-sm visible-md visible-lg"><button class="btn btn-primary" id=jobid_{{j.pk}} onClick="applyJob(objective='{{resume.objective}}', email='{{student.email}}', major='{{student.userprofile.student.currentmajor}}', jobid={{j.pk}}, studentid={{student.pk}})">Apply</button></td>
 	        	{% endif %}        	
 	        	<td class="visible-md visible-lg">{{j.updated_at|date:'b d Y '|upper}}</td>
     	</tr>

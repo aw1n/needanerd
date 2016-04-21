@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^activate/$', appsecurity.views.activate),
     url(r'^reactivate/(?P<user_id>\d+)/$', appsecurity.views.reactivate),
     url(r'^confirm/(?P<key>[0-9A-Za-z]+)$', appsecurity.views.confirm),
+    url(r'^confirm/email/(?P<key>[0-9A-Za-z]+)$', appsecurity.views.confirmemail),
     url(r'^passwordchange/$', django.contrib.auth.views.password_change,{'post_change_redirect': reverse_lazy('profile')}),
     url(r'^delete/(?P<user_id>\d+)/$', appsecurity.views.user_delete),
     url(r'^password/reset/$',django.contrib.auth.views.password_reset,{'template_name': 'registration/nan_password_reset_form.html', 'email_template_name': 'registration/nan_password_reset_email.html', 'post_reset_redirect': '/accounts/password/reset/done/', 'extra_context': {'mysite': 'mysite'}}),

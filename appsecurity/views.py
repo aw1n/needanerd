@@ -88,6 +88,10 @@ def social_login_post_processing(request):
         newStudent=Student()
         newStudent.userprofile=user.userprofile
         newStudent.save()
+        
+        'Create a default resume'
+        Resume.objects.create(student=newStudent)
+        
         user.userprofile.student=newStudent
         user.userprofile.save()
         studentgroup = Group.objects.get_or_create(name=studentgroupname)
@@ -163,6 +167,19 @@ def confirm(request, key):
     #return render_to_response('confirm.html', {'success': True}, context_instance=RequestContext(request))
     return render_to_response('index.html', {'msg': 'Congratulations, your account is actived', 'success': True}, context_instance=RequestContext(request))
 
+#This function is for existing users who change their email
+def confirmemail(request, key):
+    logger.debug('Confirming account with activation key='+key)
+    
+    user_profile = get_object_or_404(UserProfile, activation_key=key)
+    now = timezone.now() 
+    if user_profile.key_expires < now:
+        return render_to_response('index.html', {'errmsg': 'This link has expired, you must re-register'}, context_instance=RequestContext(request))
+    user_account = user_profile.user
+    user_account.is_active = True
+    user_account.save()
+    request.session['msg'] = 'Congratulations, you have confirmed your new email address'
+    return HttpResponseRedirect(reverse_lazy('profile'))
 
 def user_delete(request, user_id):
     

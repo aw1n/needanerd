@@ -57,7 +57,8 @@
 		<script language='JavaScript'>
 			resumepk=$("#resumepk");
 			resumepk.val(jQuery.parseJSON(JSON.stringify({{resume|safe}}))[0].pk);
-		</script>		
+		</script>
+				
 	{% else %}
 	{% endif %}
 	<br />
@@ -83,6 +84,39 @@
 	{% csrf_token %}
 	<br />
 	<br />
+	<hr class="style-four"/>
+	
+		<div class="row">
+			
+			<div class="col-xs-1">
+				<label for="email" class="">Email</label>
+			</div>
+			<div class="col-xs-3">
+				<input id="email" type="text" class="form-control" value="{{student.email}}" readonly>
+			</div>
+			{% if hasCRUDPrivs %}
+			<input type="hidden" id="studentpk" value="{{student.pk}}" />
+			<div class="col-xs-1">
+				<button type="button" id="editemail" class="btn btn-primary" ><span id="editemailspan" class="glyphicon glyphicon-ok"></span> Edit</button>
+			</div>
+			{% endif %}
+		
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-xs-1">
+				<label for="major" class="">Major</label>
+			</div>
+			<div class="col-xs-3">
+				<input id="major" type="text" class="form-control" value="{{student.userprofile.student.currentmajor}}" readonly>
+			</div>
+			{% if hasCRUDPrivs %}
+			<div class="col-xs-1">
+				<button type="button" id="editmajor" class="btn btn-primary" ><span id="editmajorspan" class="glyphicon glyphicon-ok"></span> Edit</button>
+			</div>
+			{% endif %}
+		</div>
+	
 	<hr class="style-four"/>
 	<div id="summarydiv">
 		<p class="lead">
@@ -279,7 +313,5 @@
 	<li><a href="/accounts/passwordchange/">Change</a> your password</li>
 </ul>
 {% else %}
-{{user.userprofile.student.pk}}
-{{student.userprofile.student.pk}}
 {% endifequal %}
 {% endblock %}

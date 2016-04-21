@@ -54,6 +54,8 @@ function updateResume(data){
 	}).done(function() {
 		//alert("it says it worked");
 		//$( this ).addClass( "done" );
+		
+
 	}).fail(function() {
 		//alert("it says it failed");
 		//$( this ).addClass( "done" );
@@ -61,6 +63,74 @@ function updateResume(data){
 		//$( this ).addClass( "done" );
 	});
 
+}
+
+function editEmail(){
+	$('#email').removeProp('readonly');
+	$('#editemail').html('<span id="editemailspan" class="glyphicon glyphicon-ok"></span> Save');
+	$('#editemail').click(function (){
+		
+		var data = {
+				email: $("#email").val(),
+		}
+		$.ajax({
+			url: "/students/update/"+$("#studentpk").val() +"/",
+			beforeSend: function(xhr){xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'))},
+			context: document.body,
+			data: data,
+			dataType: "json",
+			type: "POST",
+		}).done(function(data) {
+			bootbox.alert( 'Email address successfully updated. Please make sure to validate your new email address',function() {
+				$('#email').prop('readonly', true);
+				$('#editemail').html('<span id="editemailspan" class="glyphicon glyphicon-ok"></span> Edit');
+				$("#editemail").off('click');
+				$("#editemail").click(editEmail);
+			});
+		}).fail(function() {
+			bootbox.alert( 'Failed to update the email address, most likely because it is already registered to another user or had an invalid format. Contact need a nerd if you belive this an error.',function() {});
+				$('#email').prop('readonly', true);
+				$('#editemail').html('<span id="editemailspan" class="glyphicon glyphicon-ok"></span> Edit');
+				$("#editemail").off('click');
+				$("#editemail").click(editEmail);
+		}).always(function() {
+			
+		});
+		
+	});
+}
+
+function editMajor(){
+	$('#major').removeProp('readonly');
+	$('#editmajor').html('<span id="editmajorspan" class="glyphicon glyphicon-ok"></span> Save');
+	$('#editmajor').click(function (){
+		var data = {
+			major: $("#major").val(),
+		}
+		$.ajax({
+			url: "/students/update/"+$("#studentpk").val() +"/",
+			beforeSend: function(xhr){xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'))},
+			context: document.body,
+			data: data,
+			dataType: "json",
+			type: "POST",
+		}).done(function(data) {
+			bootbox.alert( 'Current major successfully updated',function() {
+				$('#major').prop('readonly', true);
+				$('#editmajor').html('<span id="editmajorspan" class="glyphicon glyphicon-ok"></span> Edit');
+				$("#editmajor").off('click');
+				$("#editmajor").click(editMajor);
+			});
+		}).fail(function() {
+			bootbox.alert( 'Failed to update, contact need a nerd',function() {});
+				$('#major').prop('readonly', true);
+				$('#editmajor').html('<span id="editmajorspan" class="glyphicon glyphicon-ok"></span> Edit');
+				$("#editmajor").off('click');
+				$("#editmajor").click(editMajor);
+		}).always(function() {
+			
+		});
+	});
 }
 
 function createDegree(data){
@@ -477,6 +547,8 @@ function deleteCert(certID){
 
 //add Certification Event Handler
 $(document).ready(function() {
+		$("#editemail").click(editEmail);
+		$("#editmajor").click(editMajor);
         $("#addsummary").click(addSummary);
         $("#adddegree").click(addDegree);
         $("#addjob").click(addJob);
