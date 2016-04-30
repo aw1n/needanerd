@@ -36,7 +36,7 @@ To setup with OpenShift
 oc new-app --docker-image=centos/postgresql-94-centos7 -e POSTGRESQL_USER=nerd -e POSTGRESQL_PASSWORD=AuburnUniversity2016! -e POSTGRESQL_DATABASE=nan_db --labels='name=nandb'
 
 2. Install Need A Nerd
-oc new-app johnfosborneiii/needanerd -e ON_OPENSHIFT=TRUE --labels='name=needanerd'
+oc new-app johnfosborneiii/needanerd-web -e ON_OPENSHIFT=TRUE --labels='name=needanerd'
 
 3. From the terminal of the need a nerd container go to the /needanerd/ directory and run
 python manage.py migrate

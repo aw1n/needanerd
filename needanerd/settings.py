@@ -194,7 +194,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
-    'needanerd.middleware.middleware.NerdSocialAuthExceptionMiddleware',
+    #'needanerd.middleware.middleware.NerdSocialAuthExceptionMiddleware',
 )
 
 ROOT_URLCONF = 'needanerd.urls'
@@ -209,6 +209,7 @@ INSTALLED_APPS = (
     #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'bootstrap3',
     'social.apps.django_app.default',
     'appsecurity',

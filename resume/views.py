@@ -1,7 +1,7 @@
 #from django.core.context_processors import csrf
 #from django.core.paginator import Paginator, InvalidPage, EmptyPage
 #from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, HttpResponseServerError
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, HttpResponseServerError, JsonResponse
 from django.core.urlresolvers import reverse_lazy
 from django.core import serializers
 from resume.models import *
@@ -74,7 +74,11 @@ def deleteResume(request, resume_id):
 @require_http_methods(["POST"])
 def createDegree(request, resume_id):
     
+    logger.debug('createDegree() called')
+    
     if hasResumeCRUDPriv(request, resume_id):
+        
+        logger.debug('Creating a new degree')
         
         r = get_object_or_404(Resume, pk=resume_id)
         d = Degree()
@@ -85,10 +89,12 @@ def createDegree(request, resume_id):
         d.date=request.POST["date"]
         d.gpa=request.POST["gpa"]
         d.honors=request.POST["honors"]
+        logger.debug('Saving the new degree')
         d.save()
         
         response = serializers.serialize("json", [d])
-        return HttpResponse(response, mimetype='application/json')
+        logger.debug('Response: ' + response)
+        return JsonResponse(response, safe=False)
     
     else:
         
@@ -139,7 +145,7 @@ def createWorkHistory(request, resume_id):
         e.save()
     
         response = serializers.serialize("json", [e])
-        return HttpResponse(response, mimetype='application/json')
+        return JsonResponse(response, safe=False)
 
     else:
         
@@ -187,7 +193,7 @@ def createSkill(request, resume_id):
         s.save()
         
         response = serializers.serialize("json", [s])
-        return HttpResponse(response, mimetype='application/json')
+        return JsonResponse(response, safe=False)
 
     else:
         
@@ -240,7 +246,7 @@ def createCert(request, resume_id):
         c.save()
         
         response = serializers.serialize("json", [c])
-        return HttpResponse(response, mimetype='application/json')
+        return JsonResponse(response, safe=False)
 
     else:
         
@@ -302,7 +308,7 @@ def updateResume(request, resume_id):
         
         response = serializers.serialize("json", [r])
         
-        return HttpResponse(response, mimetype='application/json')
+        return JsonResponse(response, safe=False)
     
     else:
         
