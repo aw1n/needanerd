@@ -10,6 +10,8 @@ MAINTAINER John Osborne <johnfosborneiii@gmail.com>
 
 ENV DJANGO_VERSION 1.9.2
 
+RUN useradd -ms /bin/bash nerd
+
 #Clear the local client cache
 #CMD rm -fr /var/cache/yum/*
 #RUN yum clean all
@@ -25,13 +27,16 @@ RUN pip install lxml==3.4.4
 RUN pip install psycopg2==2.6.1
 RUN pip install django=="$DJANGO_VERSION"
 RUN pip install python-social-auth==0.2.14
-RUN pip install django-bootstrap3
+RUN pip install django-bootstrap3==7.0.0
+RUN pip install django-extensions==1.6.3
 
 #This cache bust makes sure the docker build gets the latest code from github
-ARG CACHEBUST=4
+ARG CACHEBUST=5
 #RUN git clone https://github.com/johnfosborneiii/needanerd 
 
 RUN mkdir /code/
+RUN chown -R nerd:nerd /code/
+USER nerd
 COPY appsecurity /code/appsecurity
 COPY employer /code/employer
 COPY job /code/job

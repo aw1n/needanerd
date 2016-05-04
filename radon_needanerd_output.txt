@@ -1,0 +1,148 @@
+appsecurity/models.py
+    F 19:0 create_user_profile - A
+    C 11:0 UserProfile - A
+appsecurity/views.py
+    F 184:0 user_delete - C
+    F 39:0 login_user - B
+    F 105:0 activate - A
+    F 152:0 confirm - A
+    F 81:0 social_login_post_processing - A
+    F 116:0 reactivate - A
+    F 171:0 confirmemail - A
+appsecurity/migrations/0001_initial.py
+    C 10:0 Migration - A
+needanerd/models.py
+    C 11:0 ContactForm - A
+    C 18:0 ContactUserForm - A
+needanerd/views.py
+    F 41:0 home - A
+    F 103:0 contact - A
+    F 146:0 contactUserForm - A
+    F 86:0 profile - A
+    F 35:0 isAdmin - A
+    F 70:0 isStudent - A
+    F 78:0 isEmployer - A
+    F 100:0 notfound - A
+needanerd/context_processors.py
+    F 7:0 baseurl - A
+needanerd/middleware/middleware.py
+    M 24:4 NerdSocialAuthExceptionMiddleware.process_exception - A
+    M 34:4 NerdSocialAuthExceptionMiddleware.handle_404 - A
+    M 45:4 NerdSocialAuthExceptionMiddleware.handle_500 - A
+    C 11:0 NerdSocialAuthExceptionMiddleware - A
+    M 14:4 NerdSocialAuthExceptionMiddleware.resolver - A
+    M 56:4 NerdSocialAuthExceptionMiddleware.debug_500_response - A
+    M 61:4 NerdSocialAuthExceptionMiddleware.production_500_response - A
+student/tests.py
+    M 85:4 Test.testStudentNewUserName - A
+    C 13:0 Test - A
+    M 15:4 Test.setUp - A
+    M 18:4 Test.testStudent - A
+    M 29:4 Test.testStudentInvalidEmail - A
+    M 40:4 Test.testNoFirstName - A
+    M 50:4 Test.testNoLastName - A
+    M 60:4 Test.testMajorTooManyChars - A
+    M 71:4 Test.testStudentDuplicateUserName - A
+    M 110:4 Test.testStudentPasswordMismatch - A
+student/models.py
+    C 30:0 StudentUserCreationForm - A
+    M 73:4 StudentUserCreationForm.clean_email - A
+    M 83:4 StudentUserCreationForm.clean_password2 - A
+    C 15:0 Student - A
+    C 23:0 StudentSearch - A
+    M 91:4 StudentUserCreationForm.save - A
+    C 116:0 StudentUserEditForm - A
+    M 126:4 StudentUserEditForm.save - A
+student/views.py
+    F 69:0 student_detail - F
+    F 495:0 updateStudent - B
+    F 356:0 studentsearch - B
+    F 394:0 editStudentForm - B
+    F 33:0 students - A
+    F 449:0 studentForm - A
+    F 57:0 student_profile - A
+    F 428:0 studentApplication - A
+student/migrations/0001_initial.py
+    C 9:0 Migration - A
+employer/models.py
+    M 132:4 EmployerUserCreationForm.save - A
+    M 101:4 EmployerUserCreationForm.clean_address1 - A
+    M 111:4 EmployerUserCreationForm.clean_city - A
+    M 118:4 EmployerUserCreationForm.clean_state - A
+    M 125:4 EmployerUserCreationForm.clean_zipcode - A
+    C 176:0 EmployerUserEditForm - A
+    M 200:4 EmployerUserEditForm.clean_city - A
+    M 207:4 EmployerUserEditForm.clean_state - A
+    M 214:4 EmployerUserEditForm.clean_zipcode - A
+    M 221:4 EmployerUserEditForm.save - A
+    C 33:0 EmployerUserCreationForm - A
+    M 73:4 EmployerUserCreationForm.clean_username - A
+    M 83:4 EmployerUserCreationForm.clean_email - A
+    M 93:4 EmployerUserCreationForm.clean_password2 - A
+    C 16:0 Employer - A
+employer/views.py
+    F 57:0 employer_detail - A
+    F 117:0 employerForm - A
+    F 171:0 editEmployerForm - A
+    F 23:0 employers - A
+    F 45:0 employer_profile - A
+    F 105:0 myjobs - A
+employer/migrations/0001_initial.py
+    C 9:0 Migration - A
+job/models.py
+    C 47:0 JobForm - A
+    M 59:4 JobForm.save - A
+    C 16:0 JobSearch - A
+    C 26:0 Job - A
+job/views.py
+    F 40:0 jobsearch - B
+    F 187:0 checkdates - A
+    F 257:0 editJobForm - A
+    F 81:0 applyJob - A
+    F 109:0 jobList - A
+    F 144:0 applicantlist - A
+    F 231:0 jobForm - A
+    F 26:0 notifyStudentsNewJob - A
+    F 171:0 deleteJob - A
+    F 135:0 job_detail - A
+job/migrations/0002_auto_20160314_1922.py
+    C 8:0 Migration - A
+job/migrations/0001_initial.py
+    C 9:0 Migration - A
+resume/tests.py
+    C 10:0 Test - A
+    M 12:4 Test.setUp - A
+    M 16:4 Test.testResumeFormNoObjective - A
+    M 21:4 Test.testResumeFormObjective - A
+    M 27:4 Test.testDegreeWithoutUniversity - A
+    M 33:4 Test.testDegreeWithoutMajor - A
+    M 39:4 Test.testDegreeWithoutResume - A
+    M 45:4 Test.testDegreeMajorMoreThan32Chars - A
+    M 52:4 Test.testDegreeMajor32Chars - A
+    M 59:4 Test.testDegreeUniversityMoreThan32Chars - A
+    M 66:4 Test.testDegreeUniversity32Chars - A
+    M 73:4 Test.testDegree - A
+    M 83:4 Test.testSkill - A
+    M 89:4 Test.testCertification - A
+resume/models.py
+    C 10:0 Resume - A
+    C 16:0 Degree - A
+    C 28:0 Skill - A
+    C 34:0 Certification - A
+    C 45:0 Employment - A
+resume/views.py
+    F 28:0 hasResumeCRUDPriv - A
+    F 107:0 deleteDegree - A
+    F 159:0 deleteWorkHistory - A
+    F 206:0 deleteSkill - A
+    F 259:0 deleteCert - A
+    F 284:0 updateResume - A
+    F 73:0 createDegree - A
+    F 131:0 createWorkHistory - A
+    F 183:0 createSkill - A
+    F 231:0 createCert - A
+resume/migrations/0001_initial.py
+    C 9:0 Migration - A
+
+123 blocks (classes, functions, methods) analyzed.
+Average complexity: A (2.70731707317)
