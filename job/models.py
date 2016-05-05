@@ -94,6 +94,8 @@ class JobForm(forms.ModelForm):
             job.enddate = endyear + "-" + endmonth + "-01"
         except MultiValueDictKeyError:
             job.enddate = None
+        except IndexError:
+            job.enddate = None
                 
         job.salary=self.cleaned_data['salary']
         job.released=self.cleaned_data['released']

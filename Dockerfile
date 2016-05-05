@@ -46,6 +46,7 @@ COPY msgcenter /code/msgcenter
 COPY needanerd /code/needanerd
 COPY resume /code/resume
 COPY student /code/student
+RUN chown -R nerd:nerd /code/
 
 # Port to expose
 EXPOSE 8888
