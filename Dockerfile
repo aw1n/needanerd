@@ -11,6 +11,7 @@ MAINTAINER John Osborne <johnfosborneiii@gmail.com>
 ENV DJANGO_VERSION 1.9.2
 
 RUN useradd -ms /bin/bash nerd
+RUN echo "nerd:password" | chpasswd
 
 #Clear the local client cache
 #CMD rm -fr /var/cache/yum/*
@@ -52,4 +53,4 @@ EXPOSE 8888
 CMD python2.7 /code/manage.py makemigrations
 CMD python2.7 /code/manage.py migrate
 CMD echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'johnfosborneiii@gmail.com', 'AuburnUniversity2016')" | python2.7 /code/manage.py shell
-CMD python2.7 /code/manage.py runserver 0.0.0.0:8888
+ENTRYPOINT python2.7 /code/manage.py runserver 0.0.0.0:8888

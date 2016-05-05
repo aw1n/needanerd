@@ -49,6 +49,7 @@ DEFAULT_FROM_EMAIL = 'Need A Nerd Admin <johnfosborneiii@gmail.com>'
 EMAIL_SUBJECT_PREFIX="NeedaNerd"
 ADMINS = (
     ('John Osborne', 'JFO0002@auburn.edu'),
+    ('John Osborne', 'johnfosborneiii@gmail.com'),
 )
 
 MANAGERS = ADMINS
