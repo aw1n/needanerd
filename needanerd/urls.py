@@ -16,12 +16,13 @@ urlpatterns = [
     url(r'^resumes/', include('resume.urls')),
     url(r'^accounts/', include('appsecurity.urls')),
     #url(r'^messages/', include('msgcenter.urls')),
-    url(r'^$', needanerd.views.home, name='home'),
-    #url(r'^', 'needanerd.views.notfound', name='404'),
     
     url(r'^contact/$', needanerd.views.contact),
     url(r'^contact/(?P<user_id>\d+)/$', needanerd.views.contactUserForm),
 
     url(r'^profile/', needanerd.views.profile, name='profile'),
  
+    url(r'^$', needanerd.views.home, name='home'),
+    url(r'^/$', needanerd.views.home, name='home'),
+    url(r'^', 'needanerd.views.notfound', name='404'),
 ]

@@ -36,8 +36,6 @@ ARG CACHEBUST=5
 #RUN git clone https://github.com/johnfosborneiii/needanerd 
 
 RUN mkdir /code/
-RUN chown -R nerd:nerd /code/
-USER nerd
 COPY appsecurity /code/appsecurity
 COPY employer /code/employer
 COPY job /code/job
@@ -46,7 +44,9 @@ COPY msgcenter /code/msgcenter
 COPY needanerd /code/needanerd
 COPY resume /code/resume
 COPY student /code/student
+
 RUN chown -R nerd:nerd /code/
+USER nerd
 
 # Port to expose
 EXPOSE 8888

@@ -88,8 +88,7 @@ def applyJob(request):
     if resumes:
         resume=resumes[0]
     else:
-        resume=None
-    
+        resume=None    
     
     joblist = Job.objects.filter(released=True).order_by('-updated_at')
     paginator = Paginator(joblist, 5) # Show 25 contacts per page
@@ -136,10 +135,17 @@ def jobList(request, student_id):
 def job_detail(request, job_id):
     logger.debug("job_detail called")
     j = get_object_or_404(Job, pk=job_id)
-    u=User.objects.select_related().filter(userprofile__student__job__pk=j.pk)
+    
+    user=request.user
+    resumes=Resume.objects.filter(student=user.userprofile.student)[:1]
+    if resumes:
+        resume=resumes[0]
+    else:
+        resume=None
+    
     logger.debug('Student(s) found for the job')
     form = JobForm(instance=j) # An unbound form    
-    return render_to_response('job_detail.html', {'job': j, 'students': u, 'form': form, 'startdate': j.startdate, 'enddate': j.enddate}, context_instance=RequestContext(request))
+    return render_to_response('job_detail.html', {'job': j, 'student': user, 'resume': resume, 'form': form, 'startdate': j.startdate, 'enddate': j.enddate}, context_instance=RequestContext(request))
 
 @login_required
 def applicantlist(request, job_id):

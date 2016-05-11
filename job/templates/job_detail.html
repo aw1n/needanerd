@@ -52,7 +52,7 @@
     {% if user.userprofile.student in job.applicant.all %}
     	<button class="btn btn-success" id=jobid_{{job.pk}} disabled=True>Applied</button>
     {% else %}
-    	<button class="btn btn-primary" id=jobid_{{job.pk}} onClick="applyJob(jobid={{job.pk}}, studentid={{user.pk}})">Apply</button>
+    	<button class="btn btn-primary" id=jobid_{{job.pk}} onClick="applyJob(objective='{{resume.objective|length}}', email='{{student.email|length}}', major='{{student.userprofile.student.currentmajor|length}}', jobid={{job.pk}}, studentid={{user.pk}})">Apply</button>
     {% endif %}        	
         	
     

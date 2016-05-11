@@ -135,7 +135,7 @@ function applyJob(objective, email, major, jobid, studentid){
 	
 	try{
 	
-		if(objective == "" || email == "" || major == ""){
+		if(objective <= 0 || email <= 0 || major <= 0){
 			bootbox.alert("You cannot apply to a job until you have addded an objective, email, and major to your profile", function() {});
 			return;
 		}

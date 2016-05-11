@@ -44,8 +44,8 @@ admin.site.register(Certification)
 
 class Employment(models.Model):
     resume=models.ForeignKey('resume.Resume')
-    company=models.CharField(max_length=32)
-    title=models.CharField(max_length=32)
+    company=models.CharField(max_length=64)
+    title=models.CharField(max_length=64)
     startdate=models.CharField(max_length=16, blank=True,null=True)
     enddate=models.CharField(max_length=16, blank=True,null=True)
     jobfunctions=models.TextField(max_length=256)

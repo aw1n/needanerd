@@ -111,7 +111,7 @@ def contact(request):
             first = form.cleaned_data['first']
             last = form.cleaned_data['last']
             email = form.cleaned_data['email']
-            subject = "needanerd message: " + form.cleaned_data['subject']
+            subject = " message: " + form.cleaned_data['subject']
             message = "Message from " + first + " " + last + "\nEmail: " + email + "\n\n" + form.cleaned_data['message']
             
             try:

@@ -40,12 +40,12 @@
         	<td class="visible-sm visible-md visible-lg"><button class="btn btn-primary" onclick="window.open('/jobs/{{j.pk}}/')">Show Details</button>
         	<td class="visible-xs"><button class="btn btn-primary" onclick="window.open('/jobs/{{j.pk}}/')">Details</button>
         	<td>{{j.name}}</td>
-        	<td><a href='/employers/{{j.employer.userprofile_set.get.user.pk}}/'>{{j.employer.company_name}}</a></td>
+        	<td><a href='/employers/{{j.employer.userprofile.user.pk}}/'>{{j.employer.company_name}}</a></td>
 	        	<td class="visible-md visible-lg">{{j.salary}}</td>
 	        	{% if student.userprofile.student in j.applicant.all %}
 	        		<td class="visible-sm visible-md visible-lg"><button class="btn btn-success" id=jobid_{{j.pk}} disabled=True>Applied</button></td>
 	        	{% else %}
-	        		<td class="visible-sm visible-md visible-lg"><button class="btn btn-primary" id=jobid_{{j.pk}} onClick="applyJob(objective='{{resume.objective}}', email='{{student.email}}', major='{{student.userprofile.student.currentmajor}}', jobid={{j.pk}}, studentid={{student.pk}})">Apply</button></td>
+	        		<td class="visible-sm visible-md visible-lg"><button class="btn btn-primary" id=jobid_{{j.pk}} onClick="applyJob(objective='{{resume.objective|length}}', email='{{student.email|length}}', major='{{student.userprofile.student.currentmajor|length}}', jobid={{j.pk}}, studentid={{student.pk}})">Apply</button></td>
 	        	{% endif %}        	
 	        	<td class="visible-md visible-lg">{{j.updated_at|date:'b d Y '|upper}}</td>
     	</tr>
