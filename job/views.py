@@ -214,11 +214,20 @@ def checkdates(form):
         startyear = startdatearr[1]
         startdatenew = startmonth + "/01/" + startyear
         
-        enddatearr = enddate.split('/')
-        endmonth = enddatearr[0]
-        endyear = enddatearr[1]
-        enddatenew = endmonth + "/01/" + endyear
-        
+        try:
+            enddatearr = enddate.split('/')
+            endmonth = enddatearr[0]
+            endyear = enddatearr[1]
+            enddatenew = endmonth + "/01/" + endyear
+        except MultiValueDictKeyError:
+            form.date_errors="ERROR: You must provide a start date and an end date unless this is a permenant position"
+            logger.debug(form.date_errors)
+            return False
+        except IndexError:
+            form.date_errors="ERROR: You must provide a start date and an end date unless this is a permenant position"
+            logger.debug(form.date_errors)
+            return False
+                    
         start = datetime.strptime(startdatenew, '%m/%d/%Y')
         end = datetime.strptime(enddatenew, '%m/%d/%Y')
         if end < datetime.now():
